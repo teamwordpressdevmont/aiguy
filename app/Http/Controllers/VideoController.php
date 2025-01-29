@@ -8,17 +8,25 @@ use Illuminate\Http\Request;
 class VideoController extends Controller
 {
    // List Videos (Paginated, Categorized by Type)
-   public function index(Request $request)
-   {
+    public function index(Request $request)
+    {
+        try {
+            $category = $request->category;
+            $videos = Video::when($category, function ($query, $category) {
+                return $query->where('category', $category);
+            })->paginate(10);
 
-    
-       $category = $request->category;
-       $videos = Video::when($category, function ($query, $category) {
-           return $query->where('category', $category);
-       })->paginate(10);
+            return response()->json($videos);
 
-       return response()->json($videos);
-   }
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch videos',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 
     // Get Video Details
     public function show($id)
