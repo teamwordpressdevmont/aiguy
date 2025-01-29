@@ -18,5 +18,22 @@ class Tools extends Model
         'logo',
         'price',
         'link',
+        'avg_rating',
+        'total_reviews',
     ];
+
+    public function CategoriesHasTools ()
+    {
+        return $this->hasMany(CategoriesHasTools::class, 'tool_id', 'id');
+    }
+
+    public function PlatformsHasTools ()
+    {
+        return $this->hasMany(PlatformsHasTools::class, 'tool_id', 'id');
+    }
+
+    public function ToolsReviews ()
+    {
+        return $this->hasMany(ToolsReviews::class, 'tool_id', 'id');
+    }
 }

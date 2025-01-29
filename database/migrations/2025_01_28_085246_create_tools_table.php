@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string( 'logo' )->nullable();
             $table->integer( 'price' )->default(0);
             $table->string( 'link' )->nullable();
+            $table->float( 'avg_rating' )->default(0);
+            $table->integer( 'total_reviews' )->default(0);
             $table->timestamps();
         });
     }

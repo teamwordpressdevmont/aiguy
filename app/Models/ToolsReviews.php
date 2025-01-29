@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CategoriesHasTools extends Model
+class ToolsReviews extends Model
 {
     //
     use HasFactory;
 
-    protected $table = 'categories_has_tools';
+    protected $table = 'tools_reviews';
 
     protected $fillable = [
-        'category_id',
         'tool_id',
+        'user_id',
+        'review',
+        'ratings',
     ];
 
     public function tools ()

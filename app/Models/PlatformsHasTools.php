@@ -16,4 +16,9 @@ class PlatformsHasTools extends Model
         'platform_id',
         'tool_id',
     ];
+
+    public function tools ()
+    {
+        return $this->belongsTo(Tools::class, 'tool_id', 'id');
+    }
 }
