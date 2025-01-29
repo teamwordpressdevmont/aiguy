@@ -50,8 +50,9 @@ class VideoController extends Controller
            $validated = $request->validate([
                'youtube_link' => 'required|url',
                'title' => 'required|string|max:255',
+               'imageurl' => 'nullable|string|max:255',
                'description' => 'required|string',
-               'category' => 'required|string|max:100',
+               'category_id' => 'nullable|integer',
            ]);
 
            $video = Video::create($validated);
@@ -86,8 +87,9 @@ class VideoController extends Controller
            $validated = $request->validate([
                'youtube_link' => 'nullable|url',
                'title' => 'nullable|string|max:255',
+               'imageurl' => 'nullable|string|max:255',
                'description' => 'nullable|string',
-               'category' => 'nullable|string|max:100',
+               'category_id' => 'nullable|integer',
            ]);
 
            $video->update($validated);
