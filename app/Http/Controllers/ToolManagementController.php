@@ -11,6 +11,7 @@ use App\Models\Tools;
 use App\Models\CategoriesHasTools;
 use App\Models\PlatformsHasTools;
 use App\Models\ToolsReviews;
+use App\Models\ToolComments;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
@@ -1232,6 +1233,8 @@ class ToolManagementController extends Controller
 
             $request->validate([
                 'tool_id' => 'required|exists:tools,id',
+                'user_id' => 'required',
+                // 'user_id' => 'required|exists:users,id', uncomment when users table exists
             ]);
 
             $tool = Tools::findOrFail($request->tool_id);
@@ -1244,7 +1247,6 @@ class ToolManagementController extends Controller
             }
 
             $request->validate([
-                'user_id' => 'required',
                 'review'  => 'required|string|max:1000',
                 'ratings' => 'required|string|between:1,5',
             ]);
@@ -1366,6 +1368,87 @@ class ToolManagementController extends Controller
         } catch (ValidationException $e) {
 
             // Handle validation errors
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors(),
+            ], 422);
+        } catch (\Illuminate\Database\QueryException $exception) {
+
+            // Handle database errors
+            return response()->json([
+                'status'  => 'error',
+                'message'  => $exception->errorInfo[2],
+            ], 422);
+        } catch (\Exception $e) {
+
+            // Handle unexpected exceptions
+            return response()->json([
+                'status'  => 'error',
+                'message'  => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /* Add tool Comment API
+    * Method      : POST
+    * URL         : domain.com/api/comments/add
+    * Parameters  : ( tool_id, user_id, comment, parent_comment_id )
+    * tool_id     : required
+    * user_id     : required
+    * comment     : required, max 1000 words
+    * parent_comment_id     : not required
+    * return      : If any error returns error message with 422 status code, if success return 200 with tool_id, user_id, comment_id, parent_comment_id.
+    */
+    public function addComments( Request $request )
+    {
+        DB::beginTransaction();
+        try {
+
+            $request->validate([
+                'tool_id' => 'required|exists:tools,id',
+                // 'user_id' => 'required|exists:users,id', uncomment when user module done.
+                'user_id' => 'required',
+            ]);
+
+            $tool = Tools::findOrFail($request->tool_id);
+
+            if ( empty( $tool ) ) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid tool deleted or not exists',
+                ], 422);
+            }
+
+            $request->validate([
+                'parent_comment_id' => 'exists:tool_comments,id',
+                'comment' => 'required|max:1000',
+            ]);
+
+            $data = [
+                'tool_id'   => $tool->id,
+                'user_id'   => $request->user_id,
+                'comment'   => $request->comment,
+            ];
+
+            if ( $request->parent_comment_id ) {
+                $data['parent_comment_id'] = $request->parent_comment_id;
+            }
+
+            $comment = ToolComments::create( $data );
+
+            DB::commit();
+            return response()->json([
+                'status'            => 'success',
+                'message'           => 'Comment add successfully.',
+                'tool_id'           => $tool->id,
+                'user_id'           => $request->user_id,
+                'comment_id'        => $comment->id,
+                'parent_comment_id' => $request->parent_comment_id,
+            ], 200);
+
+        } catch (ValidationException $e) {
+
+            // Handle validation errors
             DB::rollBack();
             return response()->json([
                 'status' => 'error',
@@ -1383,6 +1466,91 @@ class ToolManagementController extends Controller
 
             // Handle unexpected exceptions
             DB::rollBack();
+            return response()->json([
+                'status'  => 'error',
+                'message'  => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /* Fetch tool Comments API
+    * Method      : GET
+    * URL         : domain.com/api/comments/get
+    * Parameters  : ( tool_id, per_page, page_no, sort_by )
+    * tool_id     : required
+    * per_page    : not required, default -1,
+    * page_no     : not required, default 1,
+    * sort_by     : not required, default DESC, format( 'ASC', 'DESC' )
+    * return      : If any error returns error message with 422 status code, if success return 200 with tool, comments, total_page, current_page, per_page, reviews.
+    */
+    public function fetchAllComments( Request $request )
+    {
+        try {
+
+            $request->validate([
+                'tool_id' => 'required|exists:tools,id',
+            ]);
+
+            $tool = Tools::findOrFail($request->tool_id);
+
+            if ( empty( $tool ) ) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid tool deleted or not exists',
+                ], 422);
+            }
+
+            $per_page = $request->per_page ?? -1;
+            $page_no = $request->page_no ?? 1;
+            $sort_by = $request->sort_by ?? 'DESC';
+
+            $total_comments_count = ToolComments::where('tool_id', $tool->id)->count();
+
+            if ($per_page == -1) {
+                $comments = ToolComments::where('tool_id', $tool->id)
+                    ->orderBy('created_at', $sort_by)
+                    ->get();
+                $total_pages = 1;
+            } else {
+                $offset = ($page_no - 1) * $per_page;
+
+                $comments = ToolComments::where('tool_id', $tool->id)
+                    ->orderBy('created_at', $sort_by)
+                    ->offset($offset)
+                    ->limit($per_page)
+                    ->get();
+
+                $total_pages = ceil($total_comments_count / $per_page);
+            }
+
+            return response()->json([
+                'status'         => 'success',
+                'message'        => 'Comments fetched successfully.',
+                'total_comments'  => $total_comments_count,
+                'total_pages'    => $total_pages,
+                'current_page'   => $page_no,
+                'per_page'       => $per_page,
+                'comments'        => $comments,
+                'tool'           => $tool,
+            ], 200);
+
+        } catch (ValidationException $e) {
+
+            // Handle validation errors
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors(),
+            ], 422);
+        } catch (\Illuminate\Database\QueryException $exception) {
+
+            // Handle database errors
+            return response()->json([
+                'status'  => 'error',
+                'message'  => $exception->errorInfo[2],
+            ], 422);
+        } catch (\Exception $e) {
+
+            // Handle unexpected exceptions
             return response()->json([
                 'status'  => 'error',
                 'message'  => $e->getMessage(),

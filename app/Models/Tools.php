@@ -36,4 +36,14 @@ class Tools extends Model
     {
         return $this->hasMany(ToolsReviews::class, 'tool_id', 'id');
     }
+
+    public function ToolsComments ()
+    {
+        return $this->hasMany(ToolComments::class, 'tool_id', 'id');
+    }
+
+    public function ToolsInteraction ()
+    {
+        return $this->hasMany(ToolsInteraction::class, 'tool_id', 'id');
+    }
 }
