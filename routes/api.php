@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\BookmarkController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -23,5 +24,14 @@ Route::prefix('videos')->group(function () {
 Route::prefix('courses')->group(function () {
     Route::get('free', [CourseController::class, 'listFreeCourses']); 
     Route::get('paid', [CourseController::class, 'listPaidCourses']);
+});
+
+
+Route::prefix('bookmark')->group(function() {
+    Route::post('/folder', [BookmarkController::class, 'createFolder']); // Create Folder
+    Route::post('/folder/{folderId}/tool', [BookmarkController::class, 'addToolToFolder']); // Add Tool
+    Route::delete('/folder/{folderId}/tool/{toolId}', [BookmarkController::class, 'removeToolFromFolder']); // Remove Tool
+    Route::get('/folders', [BookmarkController::class, 'listFolders']); // List Folders
+    Route::get('/folder/{folderId}/share', [BookmarkController::class, 'shareFolder']); // Share Folder
 });
 
