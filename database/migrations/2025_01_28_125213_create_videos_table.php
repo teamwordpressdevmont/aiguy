@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('youtube_link');
             $table->string('title');
             $table->string('imageurl')->nullable();
-            $table->text('description');
+            $table->text('description');->nullable()
             $table->string('category_id')->nullable();
             $table->timestamps();
         });
