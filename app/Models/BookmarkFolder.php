@@ -14,6 +14,6 @@ class BookmarkFolder extends Model
     // Many-to-many relationship with tools
     public function tools()
     {
-        return $this->belongsToMany(Tool::class, 'bookmark_folder_tool', 'folder_id', 'tool_id');
+        return $this->belongsToMany(Tool::class, 'bookmark_folder_tool', 'folder_id', 'tool_id')->withTimestamps();
     }
 }

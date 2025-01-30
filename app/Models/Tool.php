@@ -13,6 +13,6 @@ class Tool extends Model
 
     public function bookmarkFolders()
     {
-        return $this->belongsToMany(BookmarkFolder::class, 'bookmark_folder_tool', 'tool_id', 'folder_id');
+        return $this->belongsToMany(BookmarkFolder::class, 'bookmark_folder_tool', 'tool_id', 'folder_id')->withTimestamps();
     }
 }
