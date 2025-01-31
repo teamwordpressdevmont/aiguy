@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories_has_tools', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('tool_categories');
-            $table->foreignId('tool_id')->constrained('tools');
+            $table->string('title');
+            $table->text('description');
+            $table->string('imageurl')->nullable();
+            $table->enum('type', ['free', 'paid']);
+            $table->string('redirect_link')->nullable(); // Only for paid courses
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories_has_tools');
+        Schema::dropIfExists('courses');
     }
 };

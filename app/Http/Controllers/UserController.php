@@ -5,21 +5,101 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use App\Models\Tools;
 use App\Models\ToolsInteraction;
 use App\Models\CoursesInteraction;
 use App\Models\VideoInteraction;
 use App\Models\AffiliateInteraction;
 use App\Models\ToolComments;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
 
-class UserAnalyticsController extends Controller
-
+class UserController extends Controller
 {
+
     public function index()
     {
         //
+    }
+
+    /* Add User API
+    * Method                : POST
+    * URL                   : domain.com/api/user/add
+    * Parameters            : name, email, password, password_confirmation, terms_conditions, avatar
+    * name                  : required
+    * email                 : required, unique
+    * password              : required
+    * password_confirmation : required
+    * terms_conditions      : required, checked, value = on
+    * avatar                : not required.
+    */
+    public function addUser( Request $request )
+    {
+        DB::beginTransaction();
+        try {
+
+            $request->validate([
+                'name'              => 'required',
+                'email'             => ['required', 'email', 'unique:users,email'],
+                'password'          => ['required', 'confirmed'],
+                'terms_conditions'  => 'required|accepted',
+                'avatar'            => 'nullable|mimes:jpg,jpeg,png,gif,webp,heic,heif,svg|max:2048',
+            ]);
+
+            $user_avatar = null;
+
+            if ( $request->hasfile( 'avatar' ) ) {
+                $user_avatar = date('Y-m-d') . '-' . time() . '-' . preg_replace('/[^A-Za-z0-9\-.]/', '_', $request->avatar->getClientOriginalName());
+                $request->file('avatar')->storeAs('users-avatars', $user_avatar, 'public');
+            }
+
+            $user_password = Hash::make( $request->password );
+
+            $data = [
+                'name'  => $request->name,
+                'email'  => $request->email,
+                'password'  => $user_password,
+                'avatar'  => $request->avatar,
+                'status'    => 0,
+            ];
+
+            $user = User::create( $data );
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User Created successfully.',
+                'user_id'  => $user->id,
+            ], 200);
+
+        } catch (ValidationException $e) {
+
+            // Handle validation errors
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors(),
+            ], 422);
+        } catch (\Illuminate\Database\QueryException $exception) {
+
+            // Handle database errors
+            DB::rollBack();
+            return response()->json([
+                'status'  => 'error',
+                'message'  => $exception->errorInfo[2],
+            ], 422);
+        } catch (\Exception $e) {
+
+            // Handle unexpected exceptions
+            DB::rollBack();
+            return response()->json([
+                'status'  => 'error',
+                'message'  => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /* Add Tool Interaction API
@@ -37,14 +117,14 @@ class UserAnalyticsController extends Controller
 
             $request->validate([
                 'tool_id'   => 'required|exists:tools,id',
-                // 'user_id'   => 'required|exists:users,id', uncomment when user module active.
-                'user_id'   => 'required',
+                'user_id'   => 'required|exists:users,id',
+                // 'user_id'   => 'required',
             ]);
 
-            $previous_record = ToolsInteraction::where( 'tool_id', $request->tool_id )->where( 'user_id', $request->user_id )->first();
-            if ( $previous_record ) {
-                $previous_record->delete();
-            }
+            // $previous_record = ToolsInteraction::where( 'tool_id', $request->tool_id )->where( 'user_id', $request->user_id )->first();
+            // if ( $previous_record ) {
+            //     $previous_record->delete();
+            // }
 
             $data = [
                 'tool_id'   => $request->tool_id,
@@ -102,10 +182,10 @@ class UserAnalyticsController extends Controller
         try {
 
             $request->validate([
-                // 'course_id'   => 'required|exists:course,id', uncomment when user module active.
-                // 'user_id'   => 'required|exists:users,id', uncomment when user module active.
-                'course_id'   => 'required',
-                'user_id'   => 'required',
+                'course_id'   => 'required|exists:courses,id',
+                'user_id'   => 'required|exists:users,id',
+                // 'course_id'   => 'required',
+                // 'user_id'   => 'required',
             ]);
 
             $previous_record = CoursesInteraction::where( 'course_id', $request->course_id )->where( 'user_id', $request->user_id )->first();
@@ -169,10 +249,10 @@ class UserAnalyticsController extends Controller
         try {
 
             $request->validate([
-                // 'video_id'   => 'required|exists:videos,id', uncomment when user module active.
-                // 'user_id'   => 'required|exists:users,id', uncomment when user module active.
-                'video_id'   => 'required',
-                'user_id'   => 'required',
+                'video_id'   => 'required|exists:videos,id',
+                'user_id'   => 'required|exists:users,id',
+                // 'video_id'   => 'required',
+                // 'user_id'   => 'required',
             ]);
 
             $previous_record = VideoInteraction::where( 'video_id', $request->video_id )->where( 'user_id', $request->user_id )->first();
@@ -236,9 +316,9 @@ class UserAnalyticsController extends Controller
         try {
 
             $request->validate([
-                // 'user_id'   => 'required|exists:users,id', uncomment when user module active.
+                'user_id'   => 'required|exists:users,id',
                 // 'affiliate_id'   => 'required|exists:affiliates,id', uncomment when user module active.
-                'user_id'   => 'required',
+                // 'user_id'   => 'required',
                 'affiliate_id'   => 'required',
             ]);
 
@@ -302,8 +382,8 @@ class UserAnalyticsController extends Controller
         try {
 
             $request->validate([
-                // 'user_id'   => 'required|exists:users,id', uncomment when user module active.
-                'user_id'   => 'required',
+                'user_id'   => 'required|exists:users,id',
+                // 'user_id'   => 'required',
             ]);
 
             $tool_interactions = ToolsInteraction::where( 'user_id', $request->user_id )->get();
@@ -356,4 +436,5 @@ class UserAnalyticsController extends Controller
             ], 500);
         }
     }
+
 }

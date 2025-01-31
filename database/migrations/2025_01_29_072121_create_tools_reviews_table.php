@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->longtext('review')->nullable();
             $table->float('ratings')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

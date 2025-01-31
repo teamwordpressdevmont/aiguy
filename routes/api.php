@@ -3,12 +3,33 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ToolManagementController;
-use App\Http\Controllers\UserAnalyticsController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\CourseController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+//User Management
+Route::group(['prefix'  => 'user'], function() {
+    Route::post( '/add', [UserController::class, 'addUser'] )->name( 'add.user' );
+});
+
+//Admin Management
+Route::group(['prefix'  => 'admin'], function() {
+    Route::get( '/get-users', [AdminController::class, 'getAllUsers'] )->name( 'admin.get.users' );
+    Route::get( '/user-action', [AdminController::class, 'userAction'] )->name( 'admin.user.action' );
+    Route::post( '/update-settings', [AdminController::class, 'updateAdminSettings'] )->name( 'admin.update.settings' );
+    Route::get( '/get-pending-reviews', [AdminController::class, 'getPendingReviews'] )->name( 'admin.get.pending.reviews' );
+    Route::get( '/get-pending-comments', [AdminController::class, 'getPendingComments'] )->name( 'admin.get.pending.comments' );
+    Route::get( '/admin-reviews-actions', [AdminController::class, 'adminReviewsActions'] )->name( 'admin.reviews.actions' );
+    Route::get( '/admin-comments-actions', [AdminController::class, 'adminCommentsActions'] )->name( 'admin.comments.actions' );
+    Route::get( '/clicks-analytics', [AdminController::class, 'getClicksAnalytics'] )->name( 'admin.get.click.analytics' );
+
+});
 
 //Tool Management
 
@@ -59,9 +80,24 @@ Route::group(['prefix' => 'comments'], function () {
 //Interactions ( tool, courses, video, affiliate ) and retrieve.
 Route::group(['prefix' => 'analytics'], function () {
 
-    Route::post( '/tool-interaction', [UserAnalyticsController::class, 'addToolInteraction'])->name('add.tool.interaction');
-    Route::post( '/course-interaction', [UserAnalyticsController::class, 'addCourseInteraction'])->name('add.course.interaction');
-    Route::post( '/video-interaction', [UserAnalyticsController::class, 'addVideoInteraction'])->name('add.video.interaction');
-    Route::post( '/affiliate-interaction', [UserAnalyticsController::class, 'addAffiliateInteraction'])->name('add.affiliate.interaction');
-    Route::get( '/recent-interactions', [UserAnalyticsController::class, 'getRecentInteractionsData'] )->name( 'get.recent.interactions' );
+    Route::post( '/tool-interaction', [UserController::class, 'addToolInteraction'])->name('add.tool.interaction');
+    Route::post( '/course-interaction', [UserController::class, 'addCourseInteraction'])->name('add.course.interaction');
+    Route::post( '/video-interaction', [UserController::class, 'addVideoInteraction'])->name('add.video.interaction');
+    Route::post( '/affiliate-interaction', [UserController::class, 'addAffiliateInteraction'])->name('add.affiliate.interaction');
+    Route::get( '/recent-interactions', [UserController::class, 'getRecentInteractionsData'] )->name( 'get.recent.interactions' );
+});
+
+
+// Video and Course Management
+Route::prefix('videos')->group(function () {
+    Route::get('/', [VideoController::class, 'index']);
+    Route::get('{id}', [VideoController::class, 'show']);
+    Route::post('/', [VideoController::class, 'store']);
+    Route::put('{id}', [VideoController::class, 'update']);
+    Route::delete('{id}', [VideoController::class, 'destroy']);
+});
+
+Route::prefix('courses')->group(function () {
+    Route::get('free', [CourseController::class, 'listFreeCourses']);
+    Route::get('paid', [CourseController::class, 'listPaidCourses']);
 });

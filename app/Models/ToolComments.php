@@ -17,6 +17,7 @@ class ToolComments extends Model
         'user_id',
         'parent_comment_id',
         'comment',
+        'status',
     ];
 
     public function tools ()

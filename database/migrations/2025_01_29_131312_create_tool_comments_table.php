@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->foreignId('parent_comment_id')->constrained('tool_comments')->onDelete( 'cascade' )->nullable();
             $table->string( 'comment' );
+            $table->integer( 'status' )->default(0);
             $table->timestamps();
         });
     }

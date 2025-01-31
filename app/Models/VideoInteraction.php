@@ -16,4 +16,8 @@ class VideoInteraction extends Model
         'video_id',
         'user_id',
     ];
+
+    public function Video() {
+        return $this->belongsTo(Video::class, 'video_id', 'id');
+    }
 }

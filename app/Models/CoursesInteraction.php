@@ -16,4 +16,8 @@ class CoursesInteraction extends Model
         'course_id',
         'user_id',
     ];
+
+    public function course() {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
 }

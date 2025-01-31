@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use App\Models\Category;
+use App\Models\ToolCategory;
 use App\Models\Platform;
 use App\Models\Tools;
 use App\Models\CategoriesHasTools;
@@ -47,7 +47,7 @@ class ToolManagementController extends Controller
             $category_image = null;
 
             if ( $request->hasfile( 'image' ) ) {
-                $category_image = date('Y-m-d') . '-' . time() . '-' .  $request->image->getClientOriginalName();
+                $category_image = date('Y-m-d') . '-' . time() . '-' .  preg_replace('/[^A-Za-z0-9\-.]/', '_', $request->image->getClientOriginalName());
                 $request->file('image')->storeAs('categories_image', $category_image, 'public');
             }
 
@@ -57,7 +57,7 @@ class ToolManagementController extends Controller
                 'image'       => $category_image,
             ];
 
-            $category = Category::create($data);
+            $category = ToolToolCategory::create($data);
             DB::commit();
 
             return response()->json([
@@ -113,7 +113,7 @@ class ToolManagementController extends Controller
                 'category_id' => 'required|exists:categories,id',
             ]);
 
-            $category = Category::findOrFail($request->category_id);
+            $category = ToolCategory::findOrFail($request->category_id);
 
             if ( empty( $category ) ) {
                 return response()->json([
@@ -135,7 +135,7 @@ class ToolManagementController extends Controller
 
             if ( $request->hasfile( 'image' ) ) {
                 Storage::disk('public')->delete('categories_image/' . $category_image);
-                $category_image = date('Y-m-d') . '-' . time() . '-' .  $request->image->getClientOriginalName();
+                $category_image = date('Y-m-d') . '-' . time() . '-' .  preg_replace('/[^A-Za-z0-9\-.]/', '_', $request->image->getClientOriginalName());
                 $request->file('image')->storeAs('categories_image', $category_image, 'public');
             }
 
@@ -198,7 +198,7 @@ class ToolManagementController extends Controller
                 'category_id' => 'required|exists:categories,id',
             ]);
 
-            $category = Category::findOrFail($request->category_id);
+            $category = ToolCategory::findOrFail($request->category_id);
 
             if ( empty( $category ) ) {
                 return response()->json([
@@ -268,7 +268,7 @@ class ToolManagementController extends Controller
                 'category_id' => 'required|exists:categories,id',
             ]);
 
-            $category = Category::findOrFail($request->category_id);
+            $category = ToolCategory::findOrFail($request->category_id);
 
             if ( empty( $category ) ) {
                 return response()->json([
@@ -354,15 +354,15 @@ class ToolManagementController extends Controller
             $page_no = $request->page_no ?? 1;
             $sort_by = $request->sort_by ?? 'DESC';
 
-            $total_categories_count = Category::count();
+            $total_categories_count = ToolCategory::count();
 
             if ($per_page == -1) {
-                $category = Category::orderBy('created_at', $sort_by)->get();
+                $category = ToolCategory::orderBy('created_at', $sort_by)->get();
                 $total_pages = 1;
             } else {
                 $offset = ($page_no - 1) * $per_page;
 
-                $category = Category::orderBy('created_at', $sort_by)
+                $category = ToolCategory::orderBy('created_at', $sort_by)
                     ->offset($offset)
                     ->limit($per_page)
                     ->get();
@@ -431,7 +431,7 @@ class ToolManagementController extends Controller
             $platform_image = null;
 
             if ( $request->hasfile( 'image' ) ) {
-                $platform_image = date('Y-m-d') . '-' . time() . '-' .  $request->image->getClientOriginalName();
+                $platform_image = date('Y-m-d') . '-' . time() . '-' .  preg_replace('/[^A-Za-z0-9\-.]/', '_', $request->image->getClientOriginalName());
                 $request->file('image')->storeAs('platforms_image', $platform_image, 'public');
             }
 
@@ -519,7 +519,7 @@ class ToolManagementController extends Controller
 
             if ( $request->hasfile( 'image' ) ) {
                 Storage::disk('public')->delete('platforms_image/' . $platform_image);
-                $platform_image = date('Y-m-d') . '-' . time() . '-' .  $request->image->getClientOriginalName();
+                $platform_image = date('Y-m-d') . '-' . time() . '-' .  preg_replace('/[^A-Za-z0-9\-.]/', '_', $request->image->getClientOriginalName());
                 $request->file('image')->storeAs('platforms_image', $platform_image, 'public');
             }
 
@@ -824,7 +824,7 @@ class ToolManagementController extends Controller
             $tool_image = null;
 
             if ( $request->hasfile( 'logo' ) ) {
-                $tool_image = date('Y-m-d') . '-' . time() . '-' .  $request->logo->getClientOriginalName();
+                $tool_image = date('Y-m-d') . '-' . time() . '-' .  preg_replace('/[^A-Za-z0-9\-.]/', '_', $request->logo->getClientOriginalName());
                 $request->file('logo')->storeAs('tools_image', $tool_image, 'public');
             }
 
@@ -841,7 +841,7 @@ class ToolManagementController extends Controller
             if( is_array( $request->category ) && isset( $request->category ) ) {
                 foreach( $request->category as $key => $value ) {
 
-                    $category = Category::findOrFail( $value );
+                    $category = ToolCategory::findOrFail( $value );
 
                     if ( $category ) {
                         CategoriesHasTools::create([
@@ -962,7 +962,7 @@ class ToolManagementController extends Controller
 
             if ( $request->hasfile( 'logo' ) ) {
                 Storage::disk('public')->delete('tools_image/' . $tool_image);
-                $tool_image = date('Y-m-d') . '-' . time() . '-' .  $request->logo->getClientOriginalName();
+                $tool_image = date('Y-m-d') . '-' . time() . '-' .  preg_replace('/[^A-Za-z0-9\-.]/', '_', $request->logo->getClientOriginalName());
                 $request->file('logo')->storeAs('tools_image', $tool_image, 'public');
             }
 
@@ -980,7 +980,7 @@ class ToolManagementController extends Controller
                 $categories_has_tools = CategoriesHasTools::where( 'tool_id', $tool->id );
                 $categories_has_tools->delete();
                 foreach( $request->category as $key => $value ) {
-                    $category = Category::findOrFail( $value );
+                    $category = ToolCategory::findOrFail( $value );
                     if ( $category ) {
                         CategoriesHasTools::create([
                             'category_id'   => $category->id,
@@ -1233,8 +1233,8 @@ class ToolManagementController extends Controller
 
             $request->validate([
                 'tool_id' => 'required|exists:tools,id',
-                'user_id' => 'required',
-                // 'user_id' => 'required|exists:users,id', uncomment when users table exists
+                // 'user_id' => 'required',
+                'user_id' => 'required|exists:users,id',
             ]);
 
             $tool = Tools::findOrFail($request->tool_id);
@@ -1253,7 +1253,7 @@ class ToolManagementController extends Controller
 
             $data = [
                 'tool_id'   => $tool->id,
-                'user_id'   => 0,
+                'user_id'   => $request->user_id,
                 'review'    => $request->review,
                 'ratings'   => (float)$request->ratings,
             ];
@@ -1406,8 +1406,8 @@ class ToolManagementController extends Controller
 
             $request->validate([
                 'tool_id' => 'required|exists:tools,id',
-                // 'user_id' => 'required|exists:users,id', uncomment when user module done.
-                'user_id' => 'required',
+                'user_id' => 'required|exists:users,id',
+                // 'user_id' => 'required',
             ]);
 
             $tool = Tools::findOrFail($request->tool_id);

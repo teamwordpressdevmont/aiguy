@@ -17,6 +17,7 @@ class ToolsReviews extends Model
         'user_id',
         'review',
         'ratings',
+        'status',
     ];
 
     public function tools ()
