@@ -39,7 +39,7 @@ class ToolManagementController extends Controller
         try {
 
             $request->validate([
-                'name'        => 'required|unique:categories,name',
+                'name'        => 'required|unique:tool_categories,name',
                 'description' => 'nullable|max:1000',
                 'image'       => 'nullable|mimes:jpg,jpeg,png,gif,webp,heic,heif,svg|max:2048',
             ]);
@@ -57,7 +57,7 @@ class ToolManagementController extends Controller
                 'image'       => $category_image,
             ];
 
-            $category = ToolToolCategory::create($data);
+            $category = ToolCategory::create($data);
             DB::commit();
 
             return response()->json([

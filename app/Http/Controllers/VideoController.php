@@ -92,7 +92,7 @@ class VideoController extends Controller
             ], 500);
         }
     }
-
+   
    // Update Video
    public function update(Request $request, $id)
     {

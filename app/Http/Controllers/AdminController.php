@@ -624,7 +624,7 @@ class AdminController extends Controller
                     break;
                 case 'affiliate' :
                     //Done this when affiliate module done.
-                    ], 200);
+                    // ], 200);
                     break;
                 case 'courses' :
                     $query = Course::query()
