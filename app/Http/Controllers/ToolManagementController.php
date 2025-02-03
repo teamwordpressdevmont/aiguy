@@ -57,7 +57,7 @@ class ToolManagementController extends Controller
                 'image'       => $category_image,
             ];
 
-            $category = ToolToolCategory::create($data);
+            $category = ToolCategory::create($data);
             DB::commit();
 
             return response()->json([
