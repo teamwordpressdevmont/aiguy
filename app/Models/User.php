@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
 
-class Users extends Authenticatable
+class User extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
 
