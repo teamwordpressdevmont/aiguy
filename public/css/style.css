@@ -1,0 +1,10 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+    --color-*: initial;
+    --color-purple: #3f3cbb;
+}
