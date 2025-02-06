@@ -10,9 +10,8 @@ class AiToolDataController extends Controller
 {
     public function index()
     {
-        // return view('ai-tools.index'); // Return a view (create ai-tool/index.blade.php)
-        return view('ai-tools.index');
-
+        $categories = AIToolsCategory::all(); // Fetch all categories
+        return view('ai-tools.index', compact('categories'));
     }
 
     public function store(Request $request)
@@ -23,6 +22,7 @@ class AiToolDataController extends Controller
             'category_id' => 'required|exists:ai_tools_category,id',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
+
         ]);
 
         // Upload Images
