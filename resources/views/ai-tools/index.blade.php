@@ -13,7 +13,7 @@
     <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
         <h2 class="text-2xl font-semibold text-center mb-4">Submit AI Tool</h2>
 
-        <form action="/ai-tool/store" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="/ai-tools/store" method="POST" enctype="multipart/form-data" class="space-y-4">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div>

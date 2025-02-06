@@ -7,6 +7,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AIToolsController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\AcademyController;
 
 
 
@@ -44,3 +47,25 @@ Route::post('/track-announcement', [AnnouncementController::class, 'trackAnnounc
 
 
 Route::post("login",[UserController::class,'index']);
+
+
+
+
+//Categories
+Route::group(['prefix' => 'categories'], function () {
+    Route::get( '/get', [AIToolsController::class, 'fetchCategories1'] )->name( 'category.get' );
+    Route::get( '/get2', [AIToolsController::class, 'fetchCategories2'] )->name( 'category.get2' );
+});
+
+Route::group( ['prefix' => 'blogs'], function() {
+    Route::get( '/get-blogs', [BlogController::class, 'getBlogs'] )->name( 'get.all.blogs' );
+    Route::get( '/get-single-blog', [BlogController::class, 'getSingleBlog'] )->name( 'get.single.blogs' );
+} );
+
+Route::group( ['prefix' => 'academy'], function() {
+    Route::get( '/get', [AcademyController::class, 'getAcademies'] )->name( 'get.all.academy' );
+} );
+
+//AI Tools
+Route::get('/ai-tools', [AIToolsController::class, 'getTools'])->name('aitools.gettools');
+Route::get( '/single-ai-tool', [AIToolsController::class, 'getSingleTool'] )->name('aitools.getsingletool');
