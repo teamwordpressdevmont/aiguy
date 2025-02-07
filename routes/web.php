@@ -17,5 +17,8 @@ Route::get('/index', [HomeController::class, 'index']);
 Route::get('/ai-tools', [AiToolDataController::class, 'index'])->name('ai-tools.index');
 Route::post('/ai-tools/store', [AiToolDataController::class, 'store']);
 
+Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.index');
+Route::post('/blog/store', [BlogDataController::class, 'store']);
 
-Route::get('/blog', [BlogDataController::class, 'blog']);
+
+

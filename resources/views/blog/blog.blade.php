@@ -3,17 +3,19 @@
 
 <div class="container mx-auto">
 
-<form>
+<form action="/blog/store" method="POST" enctype="multipart/form-data" class="space-y-4>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
 
       <div class="mt-10  col-span-full">
+
         <div class="sm:col-span-4 mb-5">
           <label for="username" class="block text-sm/6 font-medium text-gray-900">Blog Title</label>
           <div class="mt-2">
             <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-            
-              <input type="text" name="username" id="username" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith">
+
+              <input type="text" name="heading" id="username" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith">
             </div>
           </div>
         </div>
@@ -21,7 +23,7 @@
         <div class="col-span-full mb-5">
           <label for="about" class="block text-sm/6 font-medium text-gray-900">Content</label>
           <div class="mt-2">
-            <textarea name="about" id="about" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+            <textarea name="content" id="about" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
           </div>
           <p class="mt-3 text-sm/6 text-gray-600">Write a few sentences about yourself.</p>
         </div>
@@ -40,7 +42,6 @@
           </div>
         </div>
 
-
         <div class="col-span-full">
           <label for="cover-photo" class="block text-sm/6 font-medium text-gray-900">Featured Image</label>
           <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -51,7 +52,7 @@
               <div class="mt-4 flex text-sm/6 text-gray-600">
                 <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500">
                   <span>Upload a file</span>
-                  <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                  <input id="file-upload" name="featured_image" type="file" class="sr-only">
                 </label>
                 <p class="pl-1">or drag and drop</p>
               </div>
@@ -59,6 +60,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
