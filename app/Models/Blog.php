@@ -13,7 +13,7 @@ class Blog extends Model
     protected $table = 'blogs';
 
     protected $fillable = [
-        'category_id',
+        // 'category_id',
         'id',
         'user_id',
         'featured_image',

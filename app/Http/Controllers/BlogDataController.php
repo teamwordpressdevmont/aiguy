@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\BlogCategory;
+// use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 
 class BlogDataController extends Controller
@@ -30,22 +30,23 @@ class BlogDataController extends Controller
         // Save to Database
         Blog::create([
             'id' => $request->id,
-            'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
             'featured_image' => $featuredImagePath,
             'heading' => $request->heading,
             'reading_time' => $request->reading_time,
             'content' => $request->content,
         ]);
 
+        dd($request->all());
+
+
         return redirect()->back()->with('success', 'Blog submitted successfully!');
     }
 
-    public function view()
-    {
-        $blog = Blog::all();
-        return view('blog.blog-view', compact('blog'));
-    }
+    // public function view()
+    // {
+    //     $blog = Blog::all();
+    //     return view('blog.blog-view', compact('blog'));
+    // }
 
 
 

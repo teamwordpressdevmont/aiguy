@@ -6,8 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Submission</title>
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-    <script src="{{ asset('js/tailwind.js') }}"></script>
 
 </head>
 
@@ -131,7 +129,7 @@
 
     <main>
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-           <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+           <form action="/blog/store" method="POST" enctype="multipart/form-data" class="space-y-4">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="pb-12">
                     <div class="col-span-full">
@@ -152,7 +150,7 @@
                             </div>
                         </div>
                         <div class="col-span-full mb-5">
-                            <label for="about" class="block text-sm/6 font-medium text-gray-900">Content</label>
+                            <label for="content" class="block text-sm/6 font-medium text-gray-900">Content</label>
                             <div class="mt-2">
                                 <textarea name="content" id="content" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
                             </div>
@@ -161,7 +159,6 @@
                             <label class="block text-sm font-medium">Fearured Image</label>
                             <input type="file" name="featured_image" id="featured_image" accept="image/*" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
-
                     </div>
                     <div class="flex items-center justify-end gap-x-6">
                         <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Publish</button>
