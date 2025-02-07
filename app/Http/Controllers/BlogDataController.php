@@ -41,11 +41,11 @@ class BlogDataController extends Controller
     }
 
 
-    // public function view()
-    // {
-    //     $blog = Blog::all();
-    //     return view('blog.blog-view', compact('blog'));
-    // }
+    public function view()
+    {
+        $blog = Blog::all();
+        return view('blog.blog-view', compact('blog'));
+    }
 
 
 

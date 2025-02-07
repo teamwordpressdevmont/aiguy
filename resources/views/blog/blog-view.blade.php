@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($blogs as $index => $blog)
+            @foreach($blog as $index => $blog)
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $blog->user_id }}</td>
