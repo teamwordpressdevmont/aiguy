@@ -33,7 +33,5 @@ Route::prefix('ai-tools')->group(function () {
 
 
 Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.blog');
-Route::post('/blog/store', [BlogDataController::class, 'store']);
+Route::post('/blog/store', [BlogDataController::class, 'store'])->name('blog.store');
 Route::get('/blog/list', [BlogDataController::class, 'view'])->name('blog.blog-list');
-
-
