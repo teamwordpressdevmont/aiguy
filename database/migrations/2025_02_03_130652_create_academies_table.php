@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('academy_logo');
             $table->string('academy_image');
             $table->enum('pricing', ['Free', 'Paid']);
-            $table->longText('affiliate_link')->nullable()->default('#');
+            $table->longText('affiliate_link')->nullable();
             $table->string('academy_filter')->nullable();
             $table->timestamps();
         });
