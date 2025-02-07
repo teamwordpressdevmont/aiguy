@@ -40,4 +40,13 @@ class AiToolDataController extends Controller
         return redirect()->back()->with('success', 'AI Tool submitted successfully!');
     }
 
+
+    public function view()
+    {
+        $categories = AIToolsCategory::all();
+        $aiTools = AiTool::with('category')->get();
+
+        return view('ai-tools.tools-view', compact('categories', 'aiTools'));
+    }
+
 }
