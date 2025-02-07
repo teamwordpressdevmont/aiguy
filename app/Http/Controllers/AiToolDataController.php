@@ -22,7 +22,6 @@ class AiToolDataController extends Controller
             'category_id' => 'required|exists:ai_tools_category,id',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
-
         ]);
 
         // Upload Images
@@ -39,6 +38,15 @@ class AiToolDataController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'AI Tool submitted successfully!');
+    }
+
+
+    public function view()
+    {
+        $categories = AIToolsCategory::all();
+        $aiTools = AiTool::with('category')->get();
+
+        return view('ai-tools.tools-view', compact('categories', 'aiTools'));
     }
 
 }

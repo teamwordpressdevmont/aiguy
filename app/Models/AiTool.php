@@ -33,4 +33,10 @@ class AiTool extends Model
         'aitool_filter',
         'added_by',
     ];
+
+    // Define the relationship between AiTool and AIToolsCategory
+    public function category()
+    {
+        return $this->belongsTo(AIToolsCategory::class, 'category_id');
+    }
 }
