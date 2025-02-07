@@ -22,7 +22,6 @@ class AiToolDataController extends Controller
             'category_id' => 'required|exists:ai_tools_category,id',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
-
         ]);
 
         // Upload Images
