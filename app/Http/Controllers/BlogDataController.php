@@ -44,7 +44,7 @@ class BlogDataController extends Controller
     public function view()
     {
         $blog = Blog::all();
-        return view('blog.blog-view', compact('blog'));
+        return view('blog.blog-list', compact('blog'));
     }
 
 
