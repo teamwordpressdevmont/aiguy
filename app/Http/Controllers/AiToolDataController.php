@@ -47,14 +47,14 @@ class AiToolDataController extends Controller
         $aiTools = AiTool::with('category')->get();
         // dd($aiTools);
 
-        return view('ai-tools.tools-view', compact('categories', 'aiTools'));
+        return view('ai-tools.tools-list', compact('categories', 'aiTools'));
     }
 
     public function edit($id)
     {
         $tool = AiTool::findOrFail($id);
         $categories = AIToolsCategory::all();
-        return view('ai-tools.edit', compact('tool', 'categories'));
+        return view('ai-tools.index', compact('tool', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -92,9 +92,20 @@ class AiToolDataController extends Controller
     public function destroy($id)
     {
         $tool = AiTool::findOrFail($id);
+        
+        // Delete images if they exist
+        if ($tool->logo) {
+            Storage::disk('public')->delete($tool->logo);
+        }
+        if ($tool->cover) {
+            Storage::disk('public')->delete($tool->cover);
+        }
+
         $tool->delete();
 
-        return redirect()->back()->with('success', 'AI Tool deleted successfully!');
+        return redirect()->route('tools.index')->with('success', 'Tool deleted successfully.');
     }
+
+    
 
 }
