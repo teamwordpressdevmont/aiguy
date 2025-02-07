@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete( 'cascade' );
             $table->string('featured_image')->nullable(); // Image URL or Path
             $table->string('heading'); // Blog Heading
-            $table->string('reading_time'); 
+            $table->string('reading_time');
             $table->longText('content'); // blog content
             $table->timestamps();
         });
