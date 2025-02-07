@@ -9,12 +9,7 @@
 </head>
 <body >
 
-    @include('header')
-
-    
    
-    
-    
     <script src="{{ asset('js/tailwind.js') }}"></script>
 </body>
 </html>
