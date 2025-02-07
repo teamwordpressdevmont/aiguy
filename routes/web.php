@@ -18,7 +18,9 @@ Route::resource('tools', AiToolDataController::class);
 
 Route::get('/ai-tools', [AiToolDataController::class, 'index'])->name('ai-tools.index');
 Route::post('/ai-tools/store', [AiToolDataController::class, 'store']);
-Route::get('/ai-tools/list', [AiToolDataController::class, 'view'])->name('ai-tools.list');
+Route::get('/ai-tools/list', [AiToolDataController::class, 'list'])->name('ai-tools.list');
+Route::get('/ai-tools/delete/{id}', [AiToolDataController::class, 'destroy'])->name('ai-tools.delete');
+Route::get('/ai-tools/{id}', [AiToolDataController::class, 'view'])->name('ai-tools.view');
 
 Route::prefix('ai-tools')->group(function () {
     // Route for showing the edit form
@@ -26,9 +28,10 @@ Route::prefix('ai-tools')->group(function () {
 
     // Route for updating the AI tool
     Route::put('{id}', [AiToolDataController::class, 'update'])->name('tools.update');
+  
 
-    // Route for deleting the AI tool
-    Route::delete('{id}/destroy', [AiToolDataController::class, 'destroy'])->name('tools.destroy');
+    // // Route for deleting the AI tool
+    // Route::delete('{id}', [AiToolDataController::class, 'destroy'])->name('tools.destroy');
 });
 
 
