@@ -129,7 +129,8 @@
 
     <main>
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-           <form action="/blog/store" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                @csrf
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="pb-12">
                     <div class="col-span-full">
