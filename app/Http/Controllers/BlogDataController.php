@@ -12,11 +12,14 @@ class BlogDataController extends Controller
     public function index()
     {
         $blogs = Blog::all();
-        return view('blog.blog', compact('blogs'));
+        $categories = BlogCategory::all();
+        return view('blog.blog', compact('blogs', 'categories'));
     }
 
     public function store(Request $request)
     {
+
+        // $request = $request->all();
         $request->validate([
             'id' => 'required|unique:blogs,id',
             'user_id' => 'required|exists:users,id',
@@ -26,21 +29,27 @@ class BlogDataController extends Controller
             'content' => 'required|string',
         ]);
 
-        // Upload Images
-        $logoPath = $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null;
-        $coverPath = $request->file('cover') ? $request->file('cover')->store('covers', 'public') : null;
+        // Upload Image
+        $featuredImagePath = $request->file('featured_image')->store('uploads', 'public');
 
         // Save to Database
         Blog::create([
             'id' => $request->id,
             'user_id' => $request->user_id,
-            'featured_image' => $request->featured_image,
+            'featured_image' => $featuredImagePath,
             'heading' => $request->heading,
             'reading_time' => $request->reading_time,
             'content' => $request->content,
         ]);
 
         return redirect()->back()->with('success', 'Blogs submitted successfully!');
+    }
+
+    public function view()
+    {
+        $categories = BlogCategory::all();
+        $aiTools = Blog::with('category')->get();
+        return view('blog.blog-view', compact('blogs', 'categories'));
     }
 
 
