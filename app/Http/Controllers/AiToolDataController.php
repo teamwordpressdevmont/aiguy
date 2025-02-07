@@ -45,6 +45,7 @@ class AiToolDataController extends Controller
     {
         $categories = AIToolsCategory::all();
         $aiTools = AiTool::with('category')->get();
+        dd($aiTools);
 
         return view('ai-tools.tools-view', compact('categories', 'aiTools'));
     }
