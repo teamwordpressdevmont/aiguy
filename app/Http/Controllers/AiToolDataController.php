@@ -50,4 +50,51 @@ class AiToolDataController extends Controller
         return view('ai-tools.tools-view', compact('categories', 'aiTools'));
     }
 
+    public function edit($id)
+    {
+        $tool = AiTool::findOrFail($id);
+        $categories = AIToolsCategory::all();
+        return view('ai-tools.edit', compact('tool', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'slug' => 'required|unique:ai_tools,slug,' . $id,
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:ai_tools_category,id',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
+        ]);
+
+        $tool = AiTool::findOrFail($id);
+
+        // Upload Images (if new images are provided)
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('logos', 'public');
+            $tool->logo = $logoPath;
+        }
+
+        if ($request->hasFile('cover')) {
+            $coverPath = $request->file('cover')->store('covers', 'public');
+            $tool->cover = $coverPath;
+        }
+
+        // Update Database
+        $tool->slug = $request->slug;
+        $tool->name = $request->name;
+        $tool->category_id = $request->category_id;
+        $tool->save();
+
+        return redirect()->back()->with('success', 'AI Tool updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $tool = AiTool::findOrFail($id);
+        $tool->delete();
+
+        return redirect()->back()->with('success', 'AI Tool deleted successfully!');
+    }
+
 }
