@@ -11,17 +11,13 @@ class BlogDataController extends Controller
     // Display a listing of the blog posts
     public function index()
     {
-        $categories = BlogCategory::all();
-        return view('blog.blog', compact('categories'));
+        return view('blog.blog');
     }
 
     public function store(Request $request)
     {
-
-        // $request = $request->all();
         $request->validate([
             'id' => 'required|unique:blogs,id',
-            'user_id' => 'required|exists:users,id',
             'featured_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'heading' => 'required|string|max:255',
             'reading_time' => 'required|integer',
@@ -34,6 +30,7 @@ class BlogDataController extends Controller
         // Save to Database
         Blog::create([
             'id' => $request->id,
+            'category_id' => $request->category_id,
             'user_id' => $request->user_id,
             'featured_image' => $featuredImagePath,
             'heading' => $request->heading,
@@ -41,15 +38,15 @@ class BlogDataController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->back()->with('success', 'Blogs submitted successfully!');
+        return redirect()->back()->with('success', 'Blog submitted successfully!');
     }
 
     public function view()
     {
-        $categories = BlogCategory::all();
-        $aiTools = Blog::with('category')->get();
-        return view('blog.blog-view', compact('blogs', 'categories'));
+        $blog = Blog::all();
+        return view('blog.blog-view', compact('blog'));
     }
+
 
 
 }
