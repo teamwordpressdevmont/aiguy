@@ -18,7 +18,7 @@ class Academy extends Model
         'academy_logo',
         'academy_image',
         'pricing',
-        'affiliate_link',
+        'affiliate_link' => '#',
     ];
 
 }
