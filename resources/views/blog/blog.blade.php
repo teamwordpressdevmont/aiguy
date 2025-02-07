@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 
 <div class="min-h-full">
