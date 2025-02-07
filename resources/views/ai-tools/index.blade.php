@@ -209,14 +209,18 @@
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium">Logo</label>
-                        <input type="file" name="logo" accept="image/*" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    <div class="col-span-full mb-5">
+                        <label class="block text-sm/6 font-medium text-gray-900">Logo</label>
+                        <div class="mt-2 grid grid-cols-1">
+                            <input type="file" name="logo" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
                     </div>
         
-                    <div>
-                        <label class="block text-sm font-medium">Cover Image</label>
-                        <input type="file" name="cover" accept="image/*" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    <div class="col-span-full mb-5">
+                        <label class="block text-sm/6 font-medium text-gray-900">Cover Image</label>
+                        <div class="mt-2 grid grid-cols-1">
+                            <input type="file" name="cover" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>                            
                     </div>
 
                     <div class="flex items-center justify-end gap-x-6">
