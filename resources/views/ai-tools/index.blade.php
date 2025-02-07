@@ -235,7 +235,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <div class="mt-4 flex text-sm/6 text-gray-600">
-                                    <label for="upload"
+                                    <label for="logo"
                                         class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500">
                                         <span>Upload a file</span>
                                         <input id="logo" name="logo" type="file" class="sr-only">
@@ -259,7 +259,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <div class="mt-4 flex text-sm/6 text-gray-600">
-                                    <label for="upload"
+                                    <label for="cover"
                                         class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500">
                                         <span>Upload a file</span>
                                         <input id="cover" name="cover" type="file" class="sr-only">
