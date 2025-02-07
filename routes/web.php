@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AiToolDataController;
 use App\Http\Controllers\BlogDataController;
+use App\Http\Controllers\AiToolCategoryController;
 
 
 
@@ -15,6 +16,14 @@ Route::get('/', function () {
 Route::get('/index', [HomeController::class, 'index']);
 
 Route::resource('tools', AiToolDataController::class);
+
+Route::resource('categories', AiToolCategoryController::class);
+Route::resource('categories', AiToolCategoryController::class)->except(['index']);
+
+Route::get('/ai-tools-category', [AiToolCategoryController::class, 'index'])->name('categories.index');
+Route::get('/ai-tools-category/create', [AiToolCategoryController::class, 'create'])->name('categories.create');
+Route::post('/ai-tools-category', [AiToolCategoryController::class, 'store'])->name('categories.store');
+
 
 
 Route::get('/ai-tools', [AiToolDataController::class, 'index'])->name('ai-tools.index');
