@@ -37,7 +37,8 @@ class AiToolDataController extends Controller
             'cover' => $coverPath,
         ]);
 
-        return redirect()->back()->with('success', 'AI Tool submitted successfully!');
+
+        return redirect()->route('ai-tools.list')->with('success', 'AI Tool submitted successfully!');
     }
 
 
