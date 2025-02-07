@@ -6,6 +6,7 @@ use App\Http\Controllers\AiToolDataController;
 use App\Http\Controllers\BlogDataController;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,15 +24,13 @@ Route::get('/ai-tools/delete/{id}', [AiToolDataController::class, 'destroy'])->n
 Route::get('/ai-tools/{id}', [AiToolDataController::class, 'view'])->name('ai-tools.view');
 
 Route::prefix('ai-tools')->group(function () {
+
     // Route for showing the edit form
     Route::get('{id}/edit', [AiToolDataController::class, 'edit'])->name('tools.edit');
 
     // Route for updating the AI tool
     Route::put('{id}', [AiToolDataController::class, 'update'])->name('tools.update');
   
-
-    // // Route for deleting the AI tool
-    // Route::delete('{id}', [AiToolDataController::class, 'destroy'])->name('tools.destroy');
 });
 
 
