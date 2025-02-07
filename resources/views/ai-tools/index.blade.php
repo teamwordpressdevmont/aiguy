@@ -6,9 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Tool Submission</title>
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-    <script src="{{ asset('js/tailwind.js') }}"></script>
-
 </head>
 
 <body class="">
@@ -25,7 +22,6 @@
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
-                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <a href="#"
                                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                                     aria-current="page">Dashboard</a>
@@ -67,16 +63,6 @@
                                     </button>
                                 </div>
 
-                                <!--
-                Dropdown menu, show/hide based on menu state.
-
-                Entering: "transition ease-out duration-100"
-                  From: "transform opacity-0 scale-95"
-                  To: "transform opacity-100 scale-100"
-                Leaving: "transition ease-in duration-75"
-                  From: "transform opacity-100 scale-100"
-                  To: "transform opacity-0 scale-95"
-              -->
                                 <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 focus:outline-hidden"
                                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                     tabindex="-1">
@@ -181,7 +167,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="sm:col-span-4 mb-5">
-                        <label for="username" class="block text-sm/6 font-medium text-gray-900">Slug</label>
+                        <label for="slug" class="block text-sm/6 font-medium text-gray-900">Slug</label>
                         <div class="mt-2">
                             <div
                                 class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
@@ -193,7 +179,7 @@
                     </div>
 
                     <div class="sm:col-span-4 mb-5">
-                        <label for="username" class="block text-sm/6 font-medium text-gray-900">Name</label>
+                        <label for="name" class="block text-sm/6 font-medium text-gray-900">Name</label>
                         <div class="mt-2">
                             <div
                                 class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
@@ -205,9 +191,9 @@
                     </div>
 
                     <div class="col-span-full mb-5">
-                        <label for="country" class="block text-sm/6 font-medium text-gray-900">Categories</label>
+                        <label for="category_id" class="block text-sm/6 font-medium text-gray-900">Categories</label>
                         <div class="mt-2 grid grid-cols-1">
-                            <select id="category_id" name="category_id" autocomplete="country-name"
+                            <select id="category_id" name="category_id" 
                                 class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 <option value="" disabled selected>Select a category</option>
                                 @foreach ($categories as $category)
@@ -224,7 +210,7 @@
                     </div>
 
                     <div class="col-span-full mb-10">
-                        <label for="cover-photo" class="block text-sm/6 font-medium text-gray-900">Logo</label>
+                        <label for="logo" class="block text-sm/6 font-medium text-gray-900">Logo</label>
                         <div
                             class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                             <div class="text-center">
@@ -235,7 +221,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <div class="mt-4 flex text-sm/6 text-gray-600">
-                                    <label for="upload"
+                                    <label for="logo"
                                         class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500">
                                         <span>Upload a file</span>
                                         <input id="logo" name="logo" type="file" class="sr-only">
@@ -248,7 +234,7 @@
                     </div>
 
                     <div class="col-span-full mb-10">
-                        <label for="cover-photo" class="block text-sm/6 font-medium text-gray-900">Cover Image</label>
+                        <label for="cover" class="block text-sm/6 font-medium text-gray-900">Cover Image</label>
                         <div
                             class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                             <div class="text-center">
@@ -259,7 +245,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <div class="mt-4 flex text-sm/6 text-gray-600">
-                                    <label for="upload"
+                                    <label for="cover"
                                         class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500">
                                         <span>Upload a file</span>
                                         <input id="cover" name="cover" type="file" class="sr-only">
@@ -271,35 +257,6 @@
                         </div>
                     </div>
 
-                    <!-- <div>
-                <label class="block text-sm/6 font-medium text-gray-900">Slug</label>
-                <input type="text" name="slug" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="chatgpt-plugins" required>
-            </div> -->
-
-                    <!-- <div>
-                <label class="block text-sm font-medium">Name</label>
-                <input type="text" name="name" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="ChatGPT Plugins" required>
-            </div> -->
-
-                    <!-- <div>
-                <label class="block text-sm font-medium">Category</label>
-                <select name="category_id" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none" required>
-                    <option value="" disabled selected>Select a category</option>
-                    @foreach ($categories as $category)
-<option value="{{ $category->id }}">{{ $category->name }}</option>
-@endforeach
-                </select>
-            </div> -->
-
-                    <!-- <div>
-                <label class="block text-sm font-medium">Logo</label>
-                <input type="file" name="logo" accept="image/*" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium">Cover Image</label>
-                <input type="file" name="cover" accept="image/*" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-            </div> -->
                     <div class="flex items-center justify-end gap-x-6">
                         <button type="submit"
                             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
@@ -315,5 +272,4 @@
 
 
 </body>
-
 </html>

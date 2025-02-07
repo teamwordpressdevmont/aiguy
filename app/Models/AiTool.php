@@ -13,6 +13,7 @@ class AiTool extends Model
     protected $table = 'ai_tools';
     
     protected $fillable = [
+        'category_id',
         'slug',
         'name',
         'logo',
