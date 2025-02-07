@@ -19,7 +19,4 @@ Route::post('/ai-tools/store', [AiToolDataController::class, 'store']);
 Route::get('/ai-tools/view', [AiToolDataController::class, 'view'])->name('ai-tools.view');
 
 Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.index');
-Route::post('/blog/store', [BlogDataController::class, 'store']);
-
-
-
+Route::post('/blog/store', [BlogDataController::class, 'store'])->name('blog.store');
