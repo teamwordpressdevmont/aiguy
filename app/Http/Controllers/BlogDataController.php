@@ -11,9 +11,8 @@ class BlogDataController extends Controller
     // Display a listing of the blog posts
     public function index()
     {
-        $blogs = Blog::all();
         $categories = BlogCategory::all();
-        return view('blog.blog', compact('blogs', 'categories'));
+        return view('blog.blog', compact('categories'));
     }
 
     public function store(Request $request)
