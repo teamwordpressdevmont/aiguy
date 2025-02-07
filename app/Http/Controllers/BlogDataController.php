@@ -30,7 +30,7 @@ class BlogDataController extends Controller
         }
 
         Blog::create([
-            'user_id' => auth()->id(),
+            'user_id' => 1,
             'featured_image' => $imagePath,
             'heading' => $request->heading,
             'reading_time' => $request->reading_time,
