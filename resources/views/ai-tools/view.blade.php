@@ -20,7 +20,7 @@
     <div class="mx-auto max-w-7xl py-6">
     <a href="{{ route('ai-tools.list') }}" class=" rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             Back To List
-    </a> 
-    </div>    
+    </a>
+    </div>
 
 @endsection
