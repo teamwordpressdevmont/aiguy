@@ -42,7 +42,16 @@ class AiToolCategoryController extends Controller
         ]);
 
         if ($request->hasFile('icon')) {
-            $iconPath = $request->file('icon')->store('icons', 'public');
+            // If a new icon is uploaded, store it and update the path
+            $image = $request->file('icon');
+            
+            // Generate a unique file name using model name, image name, and current timestamp
+            $imageName = 'ai-tools-category-' . time() . '.' . $image->getClientOriginalExtension();
+            
+            // Save the image in the desired path
+            $iconPath = $image->storeAs('ai-tools-category-images', $imageName, 'public');
+            
+            // Update the validated data with the new path
             $validatedData['icon'] = $iconPath;
         }
 
@@ -82,7 +91,15 @@ class AiToolCategoryController extends Controller
 
         if ($request->hasFile('icon')) {
             // If a new icon is uploaded, store it and update the path
-            $iconPath = $request->file('icon')->store('icons', 'public');
+            $image = $request->file('icon');
+            
+            // Generate a unique file name using model name, image name, and current timestamp
+            $imageName = 'ai-tools-category-' . time() . '.' . $image->getClientOriginalExtension();
+            
+            // Save the image in the desired path
+            $iconPath = $image->storeAs('ai-tools-category-images', $imageName, 'public');
+            
+            // Update the validated data with the new path
             $validatedData['icon'] = $iconPath;
         } else {
             // If no new icon is uploaded, keep the existing icon

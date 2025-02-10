@@ -55,5 +55,4 @@ Route::get('/blog/list', [BlogDataController::class, 'view'])->name('blog.blog-l
 Route::resource('courses', CourseController::class);
 
 // Category
-Route::resource('categories', CategoryController::class);
-
+Route::resource('categoriesss', CategoryController::class);
