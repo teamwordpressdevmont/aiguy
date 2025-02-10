@@ -5,16 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Place the first <script> tag in your HTML's <head> -->
         <script src="https://cdn.tiny.cloud/1/nqaglkyao4d08whpvjbu820xk982n76q6yagitulzkuyphzw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
-        <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
         <script>
-          tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-          });
+            tinymce.init({
+                selector: '.tinymce-editor', // Replace this CSS selector to match the placeholder element for TinyMCE
+                plugins: 'code table lists',
+                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+            });
         </script>
     <title>Blog Submission</title>
 
@@ -189,7 +186,7 @@
                     <div class="col-span-full mb-5">
                         <label for="content" class="block text-sm/6 font-medium text-gray-900">Content</label>
                         <div class="mt-2">
-                            <textarea name="content" id="content" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <textarea name="content" id="content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 value="{{ old('content', $blog->content ?? '') }}"
                             </textarea>
                         </div>
@@ -223,7 +220,7 @@
                     <div class="col-span-full mb-5">
                         <label for="right_text" class="block text-sm/6 font-medium text-gray-900">Right Text</label>
                         <div class="mt-2">
-                            <textarea name="right_text" id="right_text" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <textarea name="right_text" id="right_text" rows="3" class=" tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 value="{{ old('right_text', $blog->right_text ?? '') }}
                             </textarea>
 
@@ -232,7 +229,7 @@
                     <div class="col-span-full mb-5">
                         <label for="middle_text" class="block text-sm/6 font-medium text-gray-900">Middle Text</label>
                         <div class="mt-2">
-                            <textarea name="middle_text" id="middle_text" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <textarea name="middle_text" id="middle_text" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 value="{{ old('middle_text', $blog->middle_text ?? '') }}"
                             </textarea>
                         </div>
@@ -246,18 +243,18 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-span-full mb-5">
+                    <div class="sm:col-span-4 mb-5">
                         <label for="sub_title" class="block text-sm/6 font-medium text-gray-900">Sub Title</label>
                         <div class="mt-2">
-                            <textarea name="sub_title" id="sub_title" rows="3"class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('sub_title', $blog->sub_title ?? '') }}"
-                            </textarea>
+                            <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                                <input type="text" name="sub_title" id="sub_title" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith" value="{{ old('sub_title', $blog->sub_title ?? '') }}">
+                            </div>
                         </div>
                     </div>
                     <div class="col-span-full mb-5">
                         <label for="sub_content" class="block text-sm/6 font-medium text-gray-900">Sub Content</label>
                         <div class="mt-2">
-                            <textarea name="sub_content" id="sub_content" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <textarea name="sub_content" id="sub_content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 value="{{ old('sub_content', $blog->sub_content ?? '') }}"
                             </textarea>
                         </div>
