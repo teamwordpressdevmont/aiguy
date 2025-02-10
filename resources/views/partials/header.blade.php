@@ -92,9 +92,10 @@
                 <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                   
                     <a href="{{ route('ai-tools.index') }}"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ai Tool</a>
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">AI Tool</a>
                     <a href="{{ route('ai-tools.list') }}"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ai Tool List</a>
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">AI Tool List</a>
+                        
                  
                 </div>
                 <div class="border-t border-gray-700 pt-4 pb-3">
