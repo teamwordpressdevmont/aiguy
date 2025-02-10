@@ -13,7 +13,7 @@ class Blog extends Model
     protected $table = 'blogs';
 
     protected $fillable = [
-        // 'category_id',
+        'category_id',
         'id',
         'user_id',
         'featured_image',
@@ -28,4 +28,12 @@ class Blog extends Model
         'sub_content',
         'sub_image',
     ];
+
+    // Define the relationship between AiTool and AIToolsCategory
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class, 'category_id');
+    }
+
+
 }

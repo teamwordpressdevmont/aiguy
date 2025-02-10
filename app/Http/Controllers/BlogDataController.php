@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogCategory;
 // use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -12,12 +13,18 @@ class BlogDataController extends Controller
     // Display a listing of the blog posts
     public function index()
     {
+<<<<<<< Updated upstream
+        $categories = BlogCategory::all(); // Fetch all categories
+        return view('blog.index', compact('categories'));
+=======
         return view('blog.index');
+>>>>>>> Stashed changes
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'category_id'    => 'required|exists:blog_category,id',
             'featured_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'heading'        => 'required|string|max:255',
             'reading_time'   => 'required|integer',
@@ -32,14 +39,22 @@ class BlogDataController extends Controller
         ]);
 
         // if ($request->hasFile('featured_image')) {
+<<<<<<< Updated upstream
             // $imagePath       = $request->file('featured_image') ? $request->file('featured_image')->store('blog-images', 'public') : null;
             // $leftImagePath   = $request->file('left_image') ? $request->file('left_image')->store('blog-images', 'public') : null;
             // $middleImagePath = $request->file('middle_image') ? $request->file('middle_image')->store('blog-images', 'public') : null;
             // $subImagePath    = $request->file('sub_image') ? $request->file('sub_image')->store('blog-images', 'public') : null;
+=======
+            $imagePath       = $request->file('featured_image') ? $request->file('featured_image')->store('blog-images', 'public') : null;
+            $leftImagePath   = $request->file('left_image') ? $request->file('left_image')->store('blog-images', 'public') : null;
+            $middleImagePath = $request->file('middle_image') ? $request->file('middle_image')->store('blog-images', 'public') : null;
+            $subImagePath    = $request->file('sub_image') ? $request->file('sub_image')->store('blog-images', 'public') : null;
+>>>>>>> Stashed changes
         // } else {
         //     $imagePath = null;
         // }
 
+<<<<<<< Updated upstream
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
             $formattedDate = Carbon::now()->format('Y-m-d-His');
@@ -49,6 +64,9 @@ class BlogDataController extends Controller
             $imagePath = $image->storeAs('blog-images', $imageName, 'public');
             $validatedData['featured_image'] = $imagePath;
         }
+=======
+
+>>>>>>> Stashed changes
 
         if ($request->hasFile('left_image')) {
             $image = $request->file('left_image');
@@ -82,7 +100,8 @@ class BlogDataController extends Controller
 
 
         Blog::create([
-            'user_id' => 1,
+            'user_id'        => 1,
+            'category_id'    => $request->category_id,
             'featured_image' => $imagePath,
             'heading'        => $request->heading,
             'reading_time'   => $request->reading_time,
@@ -102,22 +121,34 @@ class BlogDataController extends Controller
     // Blog List
     public function list()
     {
-        $blog = Blog::all();
-        return view('blog.blog-list', compact('blog'));
+        $categories = BlogCategory::all();
+        $blog = Blog::with('category')->get();
+        return view('blog.blog-list', compact('categories','blog'));
     }
 
     // Blog Edit
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
-        return view('blog.index', compact('blog'));
+<<<<<<< Updated upstream
+        $categories = BlogCategory::all();
+        return view('blog.index', compact('blog', 'categories'));
     }
 
     // Blog Update
+=======
+        return view('blog.index', compact('blog'));
+    }
+
+>>>>>>> Stashed changes
     public function update(Request $request, $id)
     {
         $request->validate([
             'featured_image' => 'image|mimes:jpg,jpeg,png|max:2048',
+<<<<<<< Updated upstream
+            'category_id'    => 'required|exists:blog_category,id',
+=======
+>>>>>>> Stashed changes
             'heading'        => 'required|string|max:255',
             'reading_time'   => 'required|integer',
             'content'        => 'required|string',
@@ -197,6 +228,7 @@ class BlogDataController extends Controller
         $blog->middle_text  = $request->middle_text;
         $blog->sub_title    = $request->sub_title;
         $blog->sub_content  = $request->sub_content;
+        $blog->category_id  = $request->category_id;
 
         $blog->save();
 

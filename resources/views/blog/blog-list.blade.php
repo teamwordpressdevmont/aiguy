@@ -21,6 +21,7 @@
                     <tr>
                         <th scope="col" class="px-6 py-3">#</th>
                         <th scope="col" class="px-6 py-3">User ID</th>
+                        <th scope="col" class="px-6 py-3">Category</th>
                         <th scope="col" class="px-6 py-3">Featured Image</th>
                         <th scope="col" class="px-6 py-3">Heading</th>
                         <th scope="col" class="px-6 py-3">Reading Time</th>
@@ -40,6 +41,9 @@
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $index + 1 }}</td>
                         <td class="px-6 py-4">{{ $blog->user_id }}</td>
+                        <td class="px-6 py-4">
+                            {{ $blog->category->name ?? 'Uncategorized' }}
+                        </td>
                         <td class="px-6 py-4">
                             @if($blog->featured_image)
                                 <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="Featured Image" width="100">

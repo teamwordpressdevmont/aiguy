@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 @extends('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +13,30 @@
                 plugins: 'code table lists',
                 toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
             });
+=======
+
+<<<<<<<< Updated upstream:resources/views/partials/header.blade.php
+@php
+    $currentController = class_basename(Route::current()->controller); // Gets current controller name
+@endphp
+
+@if($currentController == 'AiToolDataController' || $currentController == 'AiToolCategoryController')
+    <div class="">
+========
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place the first <script> tag in your HTML's <head> -->
+        <script src="https://cdn.tiny.cloud/1/nqaglkyao4d08whpvjbu820xk982n76q6yagitulzkuyphzw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+        <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+        <script>
+          tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+          });
+>>>>>>> Stashed changes
         </script>
     <title>Blog Submission</title>
 
@@ -21,17 +46,26 @@
 
 
     <div class="min-h-full">
+<<<<<<< Updated upstream
+=======
+>>>>>>>> Stashed changes:resources/views/blog/index.blade.php
+>>>>>>> Stashed changes
         <nav class="bg-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
                         <div class="shrink-0">
                             <img class="size-8"
+<<<<<<< Updated upstream
                                 src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+=======
+                                src="http://127.0.0.1:8000/storage/ai-tools-images/ai-tools-logo-dev-vc-logo-2025-02-10-082903.png"
+>>>>>>> Stashed changes
                                 alt="Your Company">
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
+<<<<<<< Updated upstream
                                 <a href="#"
                                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                                     aria-current="page">Dashboard</a>
@@ -43,6 +77,12 @@
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
                                 <a href="#"
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Reports</a>
+=======
+                                <a href="{{ route('ai-tools.index') }}"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ai Tool</a>
+                            <a href="{{ route('ai-tools.list') }}"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ai Tool List</a>
+>>>>>>> Stashed changes
                             </div>
                         </div>
                     </div>
@@ -113,6 +153,7 @@
             <!-- Mobile menu, show/hide based on menu state. -->
             <div class="md:hidden" id="mobile-menu">
                 <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+<<<<<<< Updated upstream
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
                         aria-current="page">Dashboard</a>
@@ -124,6 +165,15 @@
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
                     <a href="#"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Reports</a>
+=======
+                  
+                    <a href="{{ route('ai-tools.index') }}"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">AI Tool</a>
+                    <a href="{{ route('ai-tools.list') }}"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">AI Tool List</a>
+                        
+                 
+>>>>>>> Stashed changes
                 </div>
                 <div class="border-t border-gray-700 pt-4 pb-3">
                     <div class="flex items-center px-5">
@@ -160,12 +210,19 @@
                 </div>
             </div>
         </nav>
+<<<<<<< Updated upstream
         <header class="bg-white shadow-sm">
            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
               <h1 class="text-3xl font-bold tracking-tight text-gray-900">Add Blog</h1>
            </div>
         </header>
     </div>
+=======
+    </div>
+<<<<<<<< Updated upstream:resources/views/partials/header.blade.php
+@endif
+========
+>>>>>>> Stashed changes
 
     <main>
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -186,11 +243,33 @@
                     <div class="col-span-full mb-5">
                         <label for="content" class="block text-sm/6 font-medium text-gray-900">Content</label>
                         <div class="mt-2">
+<<<<<<< Updated upstream
                             <textarea name="content" id="content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+=======
+                            <textarea name="content" id="content" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+>>>>>>> Stashed changes
                                 value="{{ old('content', $blog->content ?? '') }}"
                             </textarea>
                         </div>
                     </div>
+<<<<<<< Updated upstream
+                    <div class="col-span-full mb-5">
+                        <label for="category_id" class="block text-sm/6 font-medium text-gray-900">Categories</label>
+                        <div class="mt-2 grid grid-cols-1">
+                            <select id="category_id" name="category_id"
+                                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                <option value="" disabled selected>Select a category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ isset($blog) && $blog->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+=======
+>>>>>>> Stashed changes
                     <div class="sm:col-span-4 mb-5">
                         <label for="username" class="block text-sm/6 font-medium text-gray-900">Reading Time</label>
                         <div class="mt-2">
@@ -220,7 +299,11 @@
                     <div class="col-span-full mb-5">
                         <label for="right_text" class="block text-sm/6 font-medium text-gray-900">Right Text</label>
                         <div class="mt-2">
+<<<<<<< Updated upstream
                             <textarea name="right_text" id="right_text" rows="3" class=" tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+=======
+                            <textarea name="right_text" id="right_text" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+>>>>>>> Stashed changes
                                 value="{{ old('right_text', $blog->right_text ?? '') }}
                             </textarea>
 
@@ -229,7 +312,11 @@
                     <div class="col-span-full mb-5">
                         <label for="middle_text" class="block text-sm/6 font-medium text-gray-900">Middle Text</label>
                         <div class="mt-2">
+<<<<<<< Updated upstream
                             <textarea name="middle_text" id="middle_text" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+=======
+                            <textarea name="middle_text" id="middle_text" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+>>>>>>> Stashed changes
                                 value="{{ old('middle_text', $blog->middle_text ?? '') }}"
                             </textarea>
                         </div>
@@ -243,18 +330,31 @@
                             </div>
                         @endif
                     </div>
+<<<<<<< Updated upstream
                     <div class="sm:col-span-4 mb-5">
                         <label for="sub_title" class="block text-sm/6 font-medium text-gray-900">Sub Title</label>
                         <div class="mt-2">
                             <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                                 <input type="text" name="sub_title" id="sub_title" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith" value="{{ old('sub_title', $blog->sub_title ?? '') }}">
                             </div>
+=======
+                    <div class="col-span-full mb-5">
+                        <label for="sub_title" class="block text-sm/6 font-medium text-gray-900">Sub Title</label>
+                        <div class="mt-2">
+                            <textarea name="sub_title" id="sub_title" rows="3"class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                value="{{ old('sub_title', $blog->sub_title ?? '') }}"
+                            </textarea>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                     <div class="col-span-full mb-5">
                         <label for="sub_content" class="block text-sm/6 font-medium text-gray-900">Sub Content</label>
                         <div class="mt-2">
+<<<<<<< Updated upstream
                             <textarea name="sub_content" id="sub_content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+=======
+                            <textarea name="sub_content" id="sub_content" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+>>>>>>> Stashed changes
                                 value="{{ old('sub_content', $blog->sub_content ?? '') }}"
                             </textarea>
                         </div>
@@ -278,3 +378,7 @@
             </div>
         </div>
     </main>
+<<<<<<< Updated upstream
+=======
+>>>>>>>> Stashed changes:resources/views/blog/index.blade.php
+>>>>>>> Stashed changes
