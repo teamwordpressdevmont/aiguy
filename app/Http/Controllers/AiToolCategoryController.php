@@ -9,10 +9,20 @@ use App\Models\AiToolsCategory;
 class AiToolCategoryController extends Controller
 {
     public function index() {
-        // Logic to retrieve and return categories
-        $allCategories = AiToolsCategory::all(); // Retrieve all categories
-        return view('ai-tools-category.index', compact('allCategories')); // Pass categories to the view
+
+        
+        $allCategories = AiToolsCategory::all();
+        return view('ai-tools-category.index', compact('allCategories')); 
     }
+
+    
+    // Display a list of all categories
+    public function showList()
+    {
+        $categories = AiToolsCategory::all();
+        return view('ai-tools-category.list', compact('categories'));
+    }
+
 
     // Display the form for creating a new category
     public function create()
@@ -43,4 +53,40 @@ class AiToolCategoryController extends Controller
         return redirect()->route('categories.index')
                          ->with('success', 'Category created successfully.');
     }
+
+     // Display the form for editing a category
+     public function edit($id)
+     {
+         $category = AiToolsCategory::findOrFail($id); // Retrieve the category by ID
+         $allCategories = AiToolsCategory::all(); // Retrieve all categories for the parent dropdown
+         return view('ai-tools-category.index', compact('category', 'allCategories')); // Pass both to the view
+     }
+
+      // Update an existing category in the database
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name'              => 'required|string|max:255',
+            'description'       => 'nullable|string',
+            'icon'              => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'parent_category_id'=> 'nullable|exists:ai_tools_category,id',
+        ]);
+
+        $category = AiToolsCategory::findOrFail($id); // Retrieve the category by ID
+
+        if ($request->hasFile('icon')) {
+            // If a new icon is uploaded, store it and update the path
+            $iconPath = $request->file('icon')->store('icons', 'public');
+            $validatedData['icon'] = $iconPath;
+        } else {
+            // If no new icon is uploaded, keep the existing icon
+            $validatedData['icon'] = $category->icon; // Assuming 'icon' is a column in your table
+        }
+
+        $category->update($validatedData); // Update the category with validated data
+
+        return redirect()->route('categories.index')
+                         ->with('success', 'Category updated successfully.'); // Redirect with success message
+    }
+
 }
