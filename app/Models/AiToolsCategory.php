@@ -18,4 +18,14 @@ class AiToolsCategory extends Model
         'icon',
         'description',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(AiToolsCategory::class, 'parent_category_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(AiToolsCategory::class, 'parent_category_id');
+    }
 }
