@@ -97,11 +97,15 @@ class CourseController extends Controller
     }
 
     // Delete Course
-    public function destroy(Course $course)
+    public function destroy(Course $course , $id)
     {
-        $course->categories()->detach();
-        $course->delete();
 
+        $course = Course::findOrFail($id);
+
+        if (!is_null($course)) {
+            $course->delete();
+        }
+        
         return redirect()->route('courses.index')->with('success', 'Course Deleted Successfully');
     }
 }

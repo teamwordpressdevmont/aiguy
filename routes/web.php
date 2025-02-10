@@ -71,3 +71,4 @@ Route::resource('courses', CourseController::class);
 
 // Category
 Route::resource('categories', CategoryController::class);
+Route::get('/courses/delete/{id}', [CourseController::class, 'destroy'])->name('courses.delete');

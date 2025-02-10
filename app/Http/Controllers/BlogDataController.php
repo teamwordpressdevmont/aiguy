@@ -19,20 +19,24 @@ class BlogDataController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'category_id'    => 'required|exists:blog_category,id',
-            'featured_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'heading'        => 'required|string|max:255',
-            'reading_time'   => 'required|integer',
-            'content'        => 'required|string',
-            'left_image'     => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'right_text'     => 'required|string',
-            'middle_text'    => 'required|string',
-            'middle_image'   => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'sub_title'      => 'required|string',
-            'sub_content'    => 'required|string',
-            'sub_image'      => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+
+        $validatedData = [
+            'user_id'        => 1,
+            'category_id'    => $request->category_id,
+            'featured_image' => $imagePath ?? null, // Ensure this is set even if not uploaded
+            'heading'        => $request->heading,
+            'reading_time'   => $request->reading_time,
+            'content'        => $request->content,
+            'left_image'     => $leftImagePath ?? null, // Ensure this is set even if not uploaded
+            'right_text'     => $request->right_text,
+            'middle_text'    => $request->middle_text,
+            'middle_image'   => $middleImagePath ?? null, // Ensure this is set even if not uploaded
+            'sub_title'      => $request->sub_title,
+            'sub_content'    => $request->sub_content,
+            'sub_image'      => $subImagePath ?? null, // Ensure this is set even if not uploaded
+        ];
+
+   
 
         // if ($request->hasFile('featured_image')) {
             // $imagePath       = $request->file('featured_image') ? $request->file('featured_image')->store('blog-images', 'public') : null;
@@ -84,21 +88,22 @@ class BlogDataController extends Controller
         }
 
 
-        Blog::create([
-            'user_id'        => 1,
-            'category_id'    => $request->category_id,
-            'featured_image' => $imagePath,
-            'heading'        => $request->heading,
-            'reading_time'   => $request->reading_time,
-            'content'        => $request->content,
-            'left_image'     => $leftImagePath,
-            'right_text'     => $request->right_text,
-            'middle_text'    => $request->middle_text,
-            'middle_image'   => $middleImagePath,
-            'sub_title'      => $request->sub_title,
-            'sub_content'    => $request->sub_content,
-            'sub_image'      => $subImagePath,
-        ]);
+        // Blog::create([
+        //     'user_id'        => 1,
+        //     'category_id'    => $request->category_id,
+        //     'featured_image' => $imagePath,
+        //     'heading'        => $request->heading,
+        //     'reading_time'   => $request->reading_time,
+        //     'content'        => $request->content,
+        //     'left_image'     => $leftImagePath,
+        //     'right_text'     => $request->right_text,
+        //     'middle_text'    => $request->middle_text,
+        //     'middle_image'   => $middleImagePath,
+        //     'sub_title'      => $request->sub_title,
+        //     'sub_content'    => $request->sub_content,
+        //     'sub_image'      => $subImagePath,
+        // ]);
+        Blog::create($validatedData);
 
         return redirect()->back()->with('success', 'Blog submitted successfully!');
     }

@@ -192,7 +192,7 @@
                         <label for="content" class="block text-sm/6 font-medium text-gray-900">Content</label>
                         <div class="mt-2">
                             <textarea name="content" id="content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('content', $blog->content ?? '') }}"
+                              {{ old('content', $blog->content ?? '') }}
                             </textarea>
                         </div>
                     </div>
@@ -241,7 +241,7 @@
                         <label for="right_text" class="block text-sm/6 font-medium text-gray-900">Right Text</label>
                         <div class="mt-2">
                             <textarea name="right_text" id="right_text" rows="3" class=" tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('right_text', $blog->right_text ?? '') }}
+                               {{ old('right_text', $blog->right_text ?? '') }}
                             </textarea>
 
                         </div>
@@ -250,7 +250,7 @@
                         <label for="middle_text" class="block text-sm/6 font-medium text-gray-900">Middle Text</label>
                         <div class="mt-2">
                             <textarea name="middle_text" id="middle_text" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('middle_text', $blog->middle_text ?? '') }}"
+                              {{ old('middle_text', $blog->middle_text ?? '') }}
                             </textarea>
                         </div>
                     </div>
@@ -283,7 +283,7 @@
                         <label for="right_text" class="block text-sm/6 font-medium text-gray-900">Right Text</label>
                         <div class="mt-2">
                             <textarea name="right_text" id="right_text" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('right_text', $blog->right_text ?? '') }}
+                                {{ old('right_text', $blog->right_text ?? '') }}
                             </textarea>
 
                         </div>
@@ -292,7 +292,7 @@
                         <label for="sub_content" class="block text-sm/6 font-medium text-gray-900">Sub Content</label>
                         <div class="mt-2">
                             <textarea name="sub_content" id="sub_content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('sub_content', $blog->sub_content ?? '') }}"
+                                {{ old('sub_content', $blog->sub_content ?? '') }}
                             </textarea>
                         </div>
                     </div>
