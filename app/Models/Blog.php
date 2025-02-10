@@ -20,5 +20,12 @@ class Blog extends Model
         'heading',
         'reading_time',
         'content',
+        'left_image',
+        'right_text',
+        'middle_text',
+        'middle_image',
+        'sub_title',
+        'sub_content',
+        'sub_image',
     ];
 }

@@ -14,10 +14,17 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete( 'cascade' );
-            $table->string('featured_image')->nullable(); // Image URL or Path
-            $table->string('heading'); // Blog Heading
+            $table->string('featured_image')->nullable();
+            $table->string('heading');
             $table->string('reading_time');
-            $table->longText('content'); // blog content
+            $table->longText('content');
+            $table->string('left_image')->nullable();
+            $table->longText('right_text');
+            $table->longText('middle_text');
+            $table->string('middle_image')->nullable();
+            $table->string('sub_title');
+            $table->longText('sub_content');
+            $table->string('sub_image')->nullable();
             $table->timestamps();
         });
     }
