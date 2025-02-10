@@ -49,7 +49,37 @@ Route::put('/ai-tools/{id}', [AiToolDataController::class, 'update'])->name('too
 
 
 
+<<<<<<< Updated upstream
 // Blogs
+Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.index');
+Route::post('/blog/store', [BlogDataController::class, 'store'])->name('blog.store');
+Route::get('/blog/list', [BlogDataController::class, 'list'])->name('blog.blog-list');
+Route::get('/blog/delete/{id}', [BlogDataController::class, 'destroy'])->name('blog.delete');
+Route::get('/blog/{id}', [BlogDataController::class, 'view'])->name('blog.view');
+
+Route::prefix('blog')->group(function () {
+
+    // Route for showing the blog edit form
+    Route::get('{id}/edit', [BlogDataController::class, 'edit'])->name('blog.edit');
+
+    // Route for updating blog
+    Route::put('{id}', [BlogDataController::class, 'update'])->name('blog.update');
+=======
+    // Route for updating the AI tool
+    Route::put('{id}', [AiToolDataController::class, 'update'])->name('tools.update');
+>>>>>>> Stashed changes
+
+});
+
+// Courses
+Route::resource('courses', CourseController::class);
+
+// Category
+Route::resource('categoriesss', CategoryController::class);
+
+
+<<<<<<< Updated upstream
+=======
 Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.index');
 Route::post('/blog/store', [BlogDataController::class, 'store'])->name('blog.store');
 Route::get('/blog/list', [BlogDataController::class, 'list'])->name('blog.blog-list');
@@ -65,11 +95,4 @@ Route::prefix('blog')->group(function () {
     Route::put('{id}', [BlogDataController::class, 'update'])->name('blog.update');
 
 });
-
-// Courses
-Route::resource('courses', CourseController::class);
-
-// Category
-Route::resource('categoriesss', CategoryController::class);
-
-
+>>>>>>> Stashed changes
