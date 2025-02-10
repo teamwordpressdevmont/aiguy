@@ -191,6 +191,21 @@
                             </textarea>
                         </div>
                     </div>
+                    <div class="col-span-full mb-5">
+                        <label for="category_id" class="block text-sm/6 font-medium text-gray-900">Categories</label>
+                        <div class="mt-2 grid grid-cols-1">
+                            <select id="category_id" name="category_id"
+                                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                <option value="" disabled selected>Select a category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ isset($blog) && $blog->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="sm:col-span-4 mb-5">
                         <label for="username" class="block text-sm/6 font-medium text-gray-900">Reading Time</label>
                         <div class="mt-2">

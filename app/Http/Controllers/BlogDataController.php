@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogCategory;
 // use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -12,12 +13,14 @@ class BlogDataController extends Controller
     // Display a listing of the blog posts
     public function index()
     {
-        return view('blog.index');
+        $categories = BlogCategory::all(); // Fetch all categories
+        return view('blog.index', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'category_id'    => 'required|exists:blog_category,id',
             'featured_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'heading'        => 'required|string|max:255',
             'reading_time'   => 'required|integer',
@@ -82,7 +85,8 @@ class BlogDataController extends Controller
 
 
         Blog::create([
-            'user_id' => 1,
+            'user_id'        => 1,
+            'category_id'    => $request->category_id,
             'featured_image' => $imagePath,
             'heading'        => $request->heading,
             'reading_time'   => $request->reading_time,
@@ -102,15 +106,17 @@ class BlogDataController extends Controller
     // Blog List
     public function list()
     {
-        $blog = Blog::all();
-        return view('blog.blog-list', compact('blog'));
+        $categories = BlogCategory::all();
+        $blog = Blog::with('category')->get();
+        return view('blog.blog-list', compact('categories','blog'));
     }
 
     // Blog Edit
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
-        return view('blog.index', compact('blog'));
+        $categories = BlogCategory::all();
+        return view('blog.index', compact('blog', 'categories'));
     }
 
     // Blog Update
@@ -118,6 +124,7 @@ class BlogDataController extends Controller
     {
         $request->validate([
             'featured_image' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'category_id'    => 'required|exists:blog_category,id',
             'heading'        => 'required|string|max:255',
             'reading_time'   => 'required|integer',
             'content'        => 'required|string',
@@ -197,6 +204,7 @@ class BlogDataController extends Controller
         $blog->middle_text  = $request->middle_text;
         $blog->sub_title    = $request->sub_title;
         $blog->sub_content  = $request->sub_content;
+        $blog->category_id  = $request->category_id;
 
         $blog->save();
 
