@@ -46,9 +46,9 @@ Route::prefix('ai-tools')->group(function () {
 
 
 // Blogs
-Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.blog');
+Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.index');
 Route::post('/blog/store', [BlogDataController::class, 'store'])->name('blog.store');
-Route::get('/blog/list', [BlogDataController::class, 'view'])->name('blog.blog-list');
+Route::get('/blog/list', [BlogDataController::class, 'list'])->name('blog.blog-list');
 Route::get('/blog/delete/{id}', [BlogDataController::class, 'destroy'])->name('blog.delete');
 Route::get('/blog/{id}', [BlogDataController::class, 'view'])->name('blog.view');
 
