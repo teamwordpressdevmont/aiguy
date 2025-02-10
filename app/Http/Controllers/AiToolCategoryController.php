@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AiToolsCategory;
+use Carbon\Carbon;
 
 
 class AiToolCategoryController extends Controller
@@ -45,8 +46,9 @@ class AiToolCategoryController extends Controller
             // If a new icon is uploaded, store it and update the path
             $image = $request->file('icon');
             
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
             // Generate a unique file name using model name, image name, and current timestamp
-            $imageName = 'ai-tools-category-' . time() . '.' . $image->getClientOriginalExtension();
+            $imageName = 'ai-tools-category-icon' . $formattedDate . '.' . $image->getClientOriginalExtension();
             
             // Save the image in the desired path
             $iconPath = $image->storeAs('ai-tools-category-images', $imageName, 'public');
@@ -92,9 +94,10 @@ class AiToolCategoryController extends Controller
         if ($request->hasFile('icon')) {
             // If a new icon is uploaded, store it and update the path
             $image = $request->file('icon');
-            
+
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
             // Generate a unique file name using model name, image name, and current timestamp
-            $imageName = 'ai-tools-category-' . time() . '.' . $image->getClientOriginalExtension();
+            $imageName = 'ai-tools-category-icon' . $formattedDate . '.' . $image->getClientOriginalExtension();
             
             // Save the image in the desired path
             $iconPath = $image->storeAs('ai-tools-category-images', $imageName, 'public');
