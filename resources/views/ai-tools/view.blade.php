@@ -3,6 +3,9 @@
 
 @section('content')
 
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">View AI Tool</h1>
+    </div>
 
     <div class="mt-5 mx-auto max-w-7xl bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 mx-auto">
         <img class="rounded-t-lg w-full h-100 object-cover object-center -mb-12" src="{{ asset('storage/' . $tool->cover) }}" alt="" />

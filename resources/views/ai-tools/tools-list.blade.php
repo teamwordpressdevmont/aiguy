@@ -9,16 +9,15 @@
     @endif
 
 
-
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-    <div class="flex">
-        <h4 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">AI Tool List</h4>
-
-        <a href="{{ route('ai-tools.index') }}" class="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Add New 
-        </a>            
-
+        <div class="flex">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">AI Tool List</h1>
+            <a href="{{ route('ai-tools.index') }}" class="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Add New 
+            </a>   
+        </div> 
     </div>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

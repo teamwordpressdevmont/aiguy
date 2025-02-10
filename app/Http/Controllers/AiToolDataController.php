@@ -12,7 +12,7 @@ class AiToolDataController extends Controller
 {
     public function index()
     {
-        $categories = AIToolsCategory::all(); // Fetch all categories
+        $categories = AiToolsCategory::all(); // Fetch all categories
         return view('ai-tools.index', compact('categories'));
     }
 
@@ -62,7 +62,7 @@ class AiToolDataController extends Controller
 
     public function list()
     {
-        $categories = AIToolsCategory::all();
+        $categories = AiToolsCategory::all();
         $aiTools = AiTool::with('category')->get();
         // dd($aiTools);
 
@@ -72,7 +72,7 @@ class AiToolDataController extends Controller
     public function edit($id)
     {
         $tool = AiTool::findOrFail($id);
-        $categories = AIToolsCategory::all();
+        $categories = AiToolsCategory::all();
         return view('ai-tools.index', compact('tool', 'categories'));
     }
 
@@ -103,6 +103,7 @@ class AiToolDataController extends Controller
             $logoPath = $image->storeAs('ai-tools-images', $imageName, 'public');
             $validatedData['logo'] = $logoPath;
         }
+
         if ($request->hasFile('cover')) {
             $image = $request->file('cover');
             $formattedDate = Carbon::now()->format('Y-m-d-His');

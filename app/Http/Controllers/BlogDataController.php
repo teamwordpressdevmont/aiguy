@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 // use App\Models\BlogCategory;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BlogDataController extends Controller
 {
@@ -31,14 +32,53 @@ class BlogDataController extends Controller
         ]);
 
         // if ($request->hasFile('featured_image')) {
-            $imagePath       = $request->file('featured_image') ? $request->file('featured_image')->store('blog-images', 'public') : null;
-            $leftImagePath   = $request->file('left_image') ? $request->file('left_image')->store('blog-images', 'public') : null;
-            $middleImagePath = $request->file('middle_image') ? $request->file('middle_image')->store('blog-images', 'public') : null;
-            $subImagePath    = $request->file('sub_image') ? $request->file('sub_image')->store('blog-images', 'public') : null;
+            // $imagePath       = $request->file('featured_image') ? $request->file('featured_image')->store('blog-images', 'public') : null;
+            // $leftImagePath   = $request->file('left_image') ? $request->file('left_image')->store('blog-images', 'public') : null;
+            // $middleImagePath = $request->file('middle_image') ? $request->file('middle_image')->store('blog-images', 'public') : null;
+            // $subImagePath    = $request->file('sub_image') ? $request->file('sub_image')->store('blog-images', 'public') : null;
         // } else {
         //     $imagePath = null;
         // }
 
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-featured_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $imagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['featured_image'] = $imagePath;
+        }
+
+        if ($request->hasFile('left_image')) {
+            $image = $request->file('left_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-left_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $leftImagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['left_image'] = $leftImagePath;
+        }
+
+        if ($request->hasFile('middle_image')) {
+            $image = $request->file('middle_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-middle_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $middleImagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['middle_image'] = $middleImagePath;
+        }
+
+        if ($request->hasFile('sub_image')) {
+            $image = $request->file('sub_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-sub_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $subImagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['sub_image'] = $subImagePath;
+        }
 
 
         Blog::create([
@@ -73,6 +113,7 @@ class BlogDataController extends Controller
         return view('blog.index', compact('blog'));
     }
 
+    // Blog Update
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -109,13 +150,53 @@ class BlogDataController extends Controller
             $blog->sub_image = $subImagePath;
         }
 
-        $blog->heading = $request->heading;
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-featured_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $imagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['featured_image'] = $imagePath;
+        }
+
+        if ($request->hasFile('left_image')) {
+            $image = $request->file('left_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-left_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $leftImagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['left_image'] = $leftImagePath;
+        }
+
+        if ($request->hasFile('middle_image')) {
+            $image = $request->file('middle_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-middle_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $middleImagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['middle_image'] = $middleImagePath;
+        }
+
+        if ($request->hasFile('sub_image')) {
+            $image = $request->file('sub_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'blog-sub_image-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $subImagePath = $image->storeAs('blog-images', $imageName, 'public');
+            $validatedData['sub_image'] = $subImagePath;
+        }
+
+        $blog->heading      = $request->heading;
         $blog->reading_time = $request->reading_time;
-        $blog->content = $request->content;
-        $blog->right_text = $request->right_text;
-        $blog->middle_text = $request->middle_text;
-        $blog->sub_title = $request->sub_title;
-        $blog->sub_content = $request->sub_content;
+        $blog->content      = $request->content;
+        $blog->right_text   = $request->right_text;
+        $blog->middle_text  = $request->middle_text;
+        $blog->sub_title    = $request->sub_title;
+        $blog->sub_content  = $request->sub_content;
 
         $blog->save();
 
