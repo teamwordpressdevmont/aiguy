@@ -156,7 +156,7 @@
                 <form action="{{ isset($category) ? route('categories.update', $category->id) : route('categories.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
                     @if(isset($category))
-                     @method('PUT') 
+                    @method('PUT') 
                     @endif <!-- Use PUT method if editing -->
                     
                     <!-- Name Field -->
@@ -180,6 +180,19 @@
                                           class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                                           cols="30" rows="10">{{ isset($category) ? $category->description : '' }}</textarea> <!-- Pre-fill if editing -->
                             </div>
+                        </div>
+                    </div>
+
+                     <!-- Icon Field -->
+                     <div class="col-span-full mb-5">
+                        <label class="block text-sm/6 font-medium text-gray-900">Icon</label>
+                        <div class="mt-2 grid grid-cols-1">
+                            <input type="file" name="icon" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                            @if(isset($category) && $category->icon)
+                                <div class="mt-2">
+                                    <img src="{{ asset('storage/' . $category->icon) }}" alt="Current Icon" width="100">
+                                </div>
+                            @endif
                         </div>
                     </div>
                     
