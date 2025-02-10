@@ -89,4 +89,20 @@ class AiToolCategoryController extends Controller
                          ->with('success', 'Category updated successfully.'); // Redirect with success message
     }
 
+      // Delete a category from the database
+      public function destroy($id)
+      {
+          $category = AiToolsCategory::findOrFail($id); // Retrieve the category by ID
+  
+          if ($category) {
+              $category->delete(); // Delete the category
+          }
+    
+          return redirect()->route('categories.create')->with('success', 'Category deleted successfully.');
+      }
+
+    
+
+ 
+
 }
