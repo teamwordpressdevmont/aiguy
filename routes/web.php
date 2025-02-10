@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AiToolDataController;
 use App\Http\Controllers\BlogDataController;
 use App\Http\Controllers\AiToolCategoryController;
-
+use App\Http\Controllers\CourseController;
 
 
 Route::get('/', function () {
@@ -48,3 +48,8 @@ Route::prefix('ai-tools')->group(function () {
 Route::get('/blog', [BlogDataController::class, 'index'])->name('blog.blog');
 Route::post('/blog/store', [BlogDataController::class, 'store'])->name('blog.store');
 Route::get('/blog/list', [BlogDataController::class, 'view'])->name('blog.blog-list');
+
+
+// Courses
+Route::resource('courses', CourseController::class);
+
