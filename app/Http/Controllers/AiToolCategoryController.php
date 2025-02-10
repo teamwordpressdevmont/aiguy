@@ -8,6 +8,12 @@ use App\Models\AiToolsCategory;
 
 class AiToolCategoryController extends Controller
 {
+    public function index() {
+        // Logic to retrieve and return categories
+        $allCategories = AiToolsCategory::all(); // Retrieve all categories
+        return view('ai-tools-category.index', compact('allCategories')); // Pass categories to the view
+    }
+
     // Display the form for creating a new category
     public function create()
     {
