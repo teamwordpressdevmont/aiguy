@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AiTool;
 use App\Models\AiToolsCategory;
+use Carbon\Carbon;
 
 
 class AiToolDataController extends Controller
@@ -26,8 +27,24 @@ class AiToolDataController extends Controller
         ]);
 
         // Upload Images
-        $logoPath = $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null;
-        $coverPath = $request->file('cover') ? $request->file('cover')->store('covers', 'public') : null;
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+            $extension = $image->getClientOriginalExtension(); 
+            $imageName = 'ai-tools-logo-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $logoPath = $image->storeAs('ai-tools-images', $imageName, 'public');
+            $validatedData['logo'] = $logoPath;
+        }
+        if ($request->hasFile('cover')) {
+            $image = $request->file('cover');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+            $extension = $image->getClientOriginalExtension(); 
+            $imageName = 'ai-tools-cover-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $coverPath = $image->storeAs('ai-tools-images', $imageName, 'public');
+            $validatedData['cover'] = $coverPath;
+        }
 
         // Save to Database
         AiTool::create([
@@ -77,9 +94,23 @@ class AiToolDataController extends Controller
             $tool->logo = $logoPath;
         }
 
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+            $extension = $image->getClientOriginalExtension(); 
+            $imageName = 'ai-tools-logo-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $logoPath = $image->storeAs('ai-tools-images', $imageName, 'public');
+            $validatedData['logo'] = $logoPath;
+        }
         if ($request->hasFile('cover')) {
-            $coverPath = $request->file('cover')->store('covers', 'public');
-            $tool->cover = $coverPath;
+            $image = $request->file('cover');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+            $extension = $image->getClientOriginalExtension(); 
+            $imageName = 'ai-tools-cover-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $coverPath = $image->storeAs('ai-tools-images', $imageName, 'public');
+            $validatedData['cover'] = $coverPath;
         }
 
         // Update Database

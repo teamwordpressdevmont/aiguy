@@ -47,8 +47,13 @@ class AiToolCategoryController extends Controller
             $image = $request->file('icon');
             
             $formattedDate = Carbon::now()->format('Y-m-d-His');
-            // Generate a unique file name using model name, image name, and current timestamp
-            $imageName = 'ai-tools-category-icon' . $formattedDate . '.' . $image->getClientOriginalExtension();
+            
+            // Use the original file name and append the timestamp
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); // Get only the file name without extension
+            $extension = $image->getClientOriginalExtension(); // Get the file extension
+        
+            // Generate the new file name
+            $imageName = 'ai-tools-category-icon-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
             
             // Save the image in the desired path
             $iconPath = $image->storeAs('ai-tools-category-images', $imageName, 'public');
@@ -56,17 +61,17 @@ class AiToolCategoryController extends Controller
             // Update the validated data with the new path
             $validatedData['icon'] = $iconPath;
         }
-
+        
         AiToolsCategory::create($validatedData);
 
-        return redirect()->route('categories.index')
-                         ->with('success', 'Category created successfully.');
+        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
      // Display a specific category
      public function show($id)
     {
          $category = AiToolsCategory::findOrFail($id); // Retrieve the category by ID
+
          return view('ai-tools-category.show', compact('category')); // Pass the category to the view
     }
  
@@ -94,25 +99,17 @@ class AiToolCategoryController extends Controller
         if ($request->hasFile('icon')) {
             // If a new icon is uploaded, store it and update the path
             $image = $request->file('icon');
-
             $formattedDate = Carbon::now()->format('Y-m-d-His');
-            // Generate a unique file name using model name, image name, and current timestamp
-            $imageName = 'ai-tools-category-icon' . $formattedDate . '.' . $image->getClientOriginalExtension();
-            
-            // Save the image in the desired path
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'ai-tools-category-icon-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
             $iconPath = $image->storeAs('ai-tools-category-images', $imageName, 'public');
-            
-            // Update the validated data with the new path
             $validatedData['icon'] = $iconPath;
-        } else {
-            // If no new icon is uploaded, keep the existing icon
-            $validatedData['icon'] = $category->icon; // Assuming 'icon' is a column in your table
         }
 
         $category->update($validatedData); // Update the category with validated data
 
-        return redirect()->route('categories.index')
-                         ->with('success', 'Category updated successfully.'); // Redirect with success message
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.'); // Redirect with success message
     }
 
       // Delete a category from the database
@@ -126,9 +123,5 @@ class AiToolCategoryController extends Controller
     
           return redirect()->route('categories.create')->with('success', 'Category deleted successfully.');
       }
-
-    
-
- 
 
 }

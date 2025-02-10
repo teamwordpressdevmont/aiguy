@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-
+@section('content')
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -32,9 +32,7 @@
                         <th scope="col" class="px-6 py-3">
                             Description
                         </th>
-                        {{-- <th scope="col" class="px-6 py-3">
-                        Parent Category
-                        </th> --}}
+                     
                         <th scope="col" class="px-6 py-3">
                             Icon
                         </th>
@@ -56,10 +54,6 @@
                             {{ $category->description }}
                         </td>
 
-                        {{-- <td class="px-6 py-4">
-                            {{ $category->parent_category_id ?? 'Uncategorized' }}
-                        </td> --}}
-                                
                         <td class="px-6 py-4">
                             @if($category->icon)
                                 <img src="{{ asset('storage/' . $category->icon) }}" alt="Logo" width="50">
@@ -89,3 +83,5 @@
             </table>
         </div>
     </div>
+
+@endsection
