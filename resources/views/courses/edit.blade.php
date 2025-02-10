@@ -164,91 +164,71 @@
         </div>          
 
         <div class="sm:col-span-4 mb-5">
-            <label for="Logo" class="block text-sm/6 font-medium text-gray-900">Logo</label>
-            <div class="mt-2">
+            <label for="logo" class="block text-sm/6 font-medium text-gray-900">Logo</label>
+            <div class="mt-2 grid grid-cols-1">
                 <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                    <input type="text" name="Logo" id="Logo" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith">
+                    <input type="file" name="logo" id="logo" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith">
+                    @if(isset($course) && $course->logo)
+                    <div class="mt-2">
+                        <img src="{{ asset('storage/' . $course->logo) }}" alt="Current Cover Image" width="100">
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>            
 
 
+       
+
         <div class="sm:col-span-4 mb-5">
-            <label for="country-name" class="block text-sm/6 font-medium text-gray-900">Categories</label>
+            <label for="categories" class="block text-sm/6 font-medium text-gray-900">Categories</label>
             <div class="mt-2">
-                                  
-                <select name="type"  autocomplete="country-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <select name="categories[]" multiple class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    <option value="" disabled>Select a category</option>
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                     @endforeach
-                </select>  
-
+                        <option value="{{ $category->id }}" {{ in_array($category->id, $course->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
-        </div>   
+        </div>
 
         <div class="sm:col-span-4 mb-5">
-            <label for="Logo" class="block text-sm/6 font-medium text-gray-900">Type</label>
+            <label for="type" class="block text-sm/6 font-medium text-gray-900">Type</label>
             <div class="mt-2">
-                                  
-                <select name="categories[]" multiple autocomplete="country-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <select name="type" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     <option value="free" {{ $course->type == 'free' ? 'selected' : '' }}>Free</option>
                     <option value="paid" {{ $course->type == 'paid' ? 'selected' : '' }}>Paid</option>
-                </select>  
-
+                </select>
             </div>
-        </div>     
+        </div>
         
         <div class="sm:col-span-4 mb-5">
             <label for="cover_image" class="block text-sm/6 font-medium text-gray-900">Cover Image</label>
             <div class="mt-2">
                 <div class="flex items-center rounded-md bg-white focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                     <input type="file" name="cover_image" id="cover_image" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">                    
+                    @if(isset($course) && $course->cover_image)
+                        <div class="mt-2">
+                            <img src="{{ asset('storage/' . $course->cover_image) }}" alt="Current Cover Image" width="100">
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>  
         
         <div class="sm:col-span-4 mb-5">
-            <label for="Logo" class="block text-sm/6 font-medium text-gray-900">Short Description</label>
+            <label for="short_description" class="block text-sm/6 font-medium text-gray-900">Short Description</label>
             <div class="mt-2">
                                   
                 <textarea name="short_description" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">{{ $course->short_description }}</textarea>
 
             </div>
         </div>         
-
         <div class="flex items-center justify-end gap-x-6">
             <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Course</button>
         </div>             
-                
-        <!-- <label>Name:</label>
-        <input type="text" name="name" value="{{ $course->name }}" class="form-control" required>
-
-        <label>Cover Image:</label>
-        <input type="file" name="cover_image" class="form-control">
-
-        <label>Logo:</label>
-        <input type="file" name="logo" class="form-control">
-
-        <label>Type:</label>
-        <select name="type" class="form-control">
-            <option value="free" {{ $course->type == 'free' ? 'selected' : '' }}>Free</option>
-            <option value="paid" {{ $course->type == 'paid' ? 'selected' : '' }}>Paid</option>
-        </select>
-
-        <label>Short Description:</label>
-        <textarea name="short_description" class="form-control">{{ $course->short_description }}</textarea>
-
-        <label>Categories:</label>
-        <select name="categories[]" multiple class="form-control">
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ in_array($category->id, $course->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select> -->
-
-        <!-- <button type="submit" class="btn btn-success mt-3">Update Course</button> -->
     </form>
-
 </div>
 @endsection

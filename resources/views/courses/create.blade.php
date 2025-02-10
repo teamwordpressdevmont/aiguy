@@ -160,19 +160,19 @@
 
 
         <div class="sm:col-span-4 mb-5">
-            <label for="Logo" class="block text-sm/6 font-medium text-gray-900">Logo</label>
+            <label for="logo" class="block text-sm/6 font-medium text-gray-900">Logo</label>
             <div class="mt-2">
                 <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                    <input type="text" name="Logo" id="Logo" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith">
+                    <input type="file" name="logo" id="logo" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith">
                 </div>
             </div>
         </div>  
         
         <div class="sm:col-span-4 mb-5">
-            <label for="country-name" class="block text-sm/6 font-medium text-gray-900">Categories</label>
+            <label for="categories" class="block text-sm/6 font-medium text-gray-900">Categories</label>
             <div class="mt-2">
                                   
-                <select name="type"  autocomplete="country-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <select name="categories[]" multiple  class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                      @endforeach
@@ -182,10 +182,10 @@
         </div>  
         
         <div class="sm:col-span-4 mb-5">
-            <label for="Logo" class="block text-sm/6 font-medium text-gray-900">Type</label>
+            <label for="type" class="block text-sm/6 font-medium text-gray-900">Type</label>
             <div class="mt-2">
                                   
-                <select name="categories[]" multiple autocomplete="country-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <select name="type"  class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                 <option value="free">Free</option>
                 <option value="paid">Paid</option>
                 </select>  

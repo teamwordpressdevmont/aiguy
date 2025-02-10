@@ -13,6 +13,11 @@ class Course extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_course');
+        return $this->belongsToMany(Category::class);
     }
+
+    // public function categories()
+    // {
+    //     return $this->belongsToMany(Category::class, 'category_course');
+    // }
 }

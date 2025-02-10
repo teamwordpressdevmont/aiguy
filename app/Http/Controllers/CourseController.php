@@ -34,6 +34,9 @@ class CourseController extends Controller
             'categories' => 'required|array',
         ]);
 
+        // Fix categories if sent as a string
+        $categories = is_array($request->categories) ? $request->categories : [$request->categories];
+
         // File Upload
         $coverImage = $request->file('cover_image') ? $request->file('cover_image')->store('covers', 'public') : null;
         $logo = $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null;
@@ -47,8 +50,8 @@ class CourseController extends Controller
             'short_description' => $request->short_description,
         ]);
 
-        // Attach Categories
-        $course->categories()->attach($request->categories);
+        // Attach Categories (Ensures it's an array)
+        $course->categories()->attach($categories);
 
         return redirect()->route('courses.index')->with('success', 'Course Created Successfully');
     }

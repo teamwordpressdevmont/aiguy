@@ -68,8 +68,10 @@ Route::prefix('blog')->group(function () {
 
 // Courses
 Route::resource('courses', CourseController::class);
+Route::post('/courses/store', [CourseController::class, 'store'])->name('courses.store');
+
 
 // Category
-Route::resource('categoriesss', CategoryController::class);
+Route::resource('categories', CategoryController::class);
 
 

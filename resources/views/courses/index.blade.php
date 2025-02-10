@@ -22,19 +22,35 @@
 
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <th scope="col" class="px-6 py-3">Id</th>
             <th scope="col" class="px-6 py-3">Name</th>
-            <th scope="col" class="px-6 py-3">Type</th>
+            <th scope="col" class="px-6 py-3">logo</th>
             <th scope="col" class="px-6 py-3">Categories</th>
+            <th scope="col" class="px-6 py-3">Type</th>
+            <th scope="col" class="px-6 py-3">Cover Image</th>
             <th scope="col" class="px-6 py-3">Actions</th>
         </tr>
-        @foreach($courses as $course)
+        @foreach($courses as $index =>  $course)
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+            <td class="px-6 py-4"> {{ $index + 1 }}</td>
             <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $course->name }}</td>
+            <td class="px-6 py-4">
+                @if($course->logo)
+                    <img src="{{ asset('storage/' . $course->logo) }}" alt="Logo" width="50">
+                @else
+                    No Logo
+                @endif                    
+            </td>
+            <td class="px-6 py-4">
+                <span class="badge bg-info">{{ $course->categories->pluck('name')->join(', ') }}</span>
+            </td>
             <td class="px-6 py-4">{{ ucfirst($course->type) }}</td>
             <td class="px-6 py-4">
-                @foreach($course->categories as $category)
-                    <span class="badge bg-info">{{ $category->name }}</span>
-                @endforeach
+                @if($course->cover_image)
+                    <img src="{{ asset('storage/' . $course->cover_image) }}" alt="Logo" width="50">
+                @else
+                    No Cover Image
+                @endif                    
             </td>
             <td class="px-6 py-4">
                 <div class="flex gap-3">
@@ -51,15 +67,6 @@
                         <path d="M7 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h4a1 1 0 1 1 0 2h-1.069l-.867 12.142A2 2 0 0 1 17.069 22H6.93a2 2 0 0 1-1.995-1.858L4.07 8H3a1 1 0 0 1 0-2h4V4zm2 2h6V4H9v2zM6.074 8l.857 12H17.07l.857-12H6.074zM10 10a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1z" fill="red"/></svg>
                     </a>
                 </div>
-                <!-- <form action="{{ route('courses.destroy', $course) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <title>delete</title>
-                                    <path d="M7 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h4a1 1 0 1 1 0 2h-1.069l-.867 12.142A2 2 0 0 1 17.069 22H6.93a2 2 0 0 1-1.995-1.858L4.07 8H3a1 1 0 0 1 0-2h4V4zm2 2h6V4H9v2zM6.074 8l.857 12H17.07l.857-12H6.074zM10 10a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1z" fill="red"/></svg>                        
-                    </button>
-                </form> -->
             </td>
         </tr>
         @endforeach
