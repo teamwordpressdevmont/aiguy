@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< Updated upstream
         <script src="https://cdn.tiny.cloud/1/nqaglkyao4d08whpvjbu820xk982n76q6yagitulzkuyphzw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             tinymce.init({
@@ -13,23 +12,8 @@
                 plugins: 'code table lists',
                 toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
             });
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-=======
->>>>>>> Stashed changes
-    <!-- Place the first <script> tag in your HTML's <head> -->
-        <script src="https://cdn.tiny.cloud/1/nqaglkyao4d08whpvjbu820xk982n76q6yagitulzkuyphzw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
-        <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
-        <script>
-          tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-          });
         </script>
-    <title>Blog Submission</title>
+
 
 </head>
 
@@ -207,16 +191,11 @@
                     <div class="col-span-full mb-5">
                         <label for="content" class="block text-sm/6 font-medium text-gray-900">Content</label>
                         <div class="mt-2">
-<<<<<<< Updated upstream
                             <textarea name="content" id="content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-=======
-                            <textarea name="content" id="content" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
->>>>>>> Stashed changes
                                 value="{{ old('content', $blog->content ?? '') }}"
                             </textarea>
                         </div>
                     </div>
-<<<<<<< Updated upstream
                     <div class="col-span-full mb-5">
                         <label for="category_id" class="block text-sm/6 font-medium text-gray-900">Categories</label>
                         <div class="mt-2 grid grid-cols-1">
@@ -232,8 +211,6 @@
                             </select>
                         </div>
                     </div>
-=======
->>>>>>> Stashed changes
                     <div class="sm:col-span-4 mb-5">
                         <label for="username" class="block text-sm/6 font-medium text-gray-900">Reading Time</label>
                         <div class="mt-2">
@@ -248,7 +225,6 @@
                         @if(isset($blog) && $blog->featured_image)
                             <div class="mt-2">
                                 <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="Featured Image" width="100">
-<<<<<<< Updated upstream
                             </div>
                         @endif
                     </div>
@@ -292,8 +268,6 @@
                         <div class="mt-2">
                             <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                                 <input type="text" name="sub_title" id="sub_title" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith" value="{{ old('sub_title', $blog->sub_title ?? '') }}">
-=======
->>>>>>> Stashed changes
                             </div>
                         @endif
                     </div>
@@ -316,49 +290,14 @@
                         </div>
                     </div>
                     <div class="col-span-full mb-5">
-<<<<<<< Updated upstream
                         <label for="sub_content" class="block text-sm/6 font-medium text-gray-900">Sub Content</label>
                         <div class="mt-2">
                             <textarea name="sub_content" id="sub_content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 value="{{ old('sub_content', $blog->sub_content ?? '') }}"
-=======
-                        <label for="middle_text" class="block text-sm/6 font-medium text-gray-900">Middle Text</label>
-                        <div class="mt-2">
-                            <textarea name="middle_text" id="middle_text" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('middle_text', $blog->middle_text ?? '') }}"
->>>>>>> Stashed changes
                             </textarea>
                         </div>
                     </div>
                     <div class="col-span-full mb-5">
-<<<<<<< Updated upstream
-=======
-                        <label class="block text-sm font-medium">Middle Image</label>
-                        <input type="file" name="middle_image" id="middle_image" accept="image/*" class="w-full p-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-                        @if(isset($blog) && $blog->middle_image)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $blog->middle_image) }}" alt="Middle Image" width="100">
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-span-full mb-5">
-                        <label for="sub_title" class="block text-sm/6 font-medium text-gray-900">Sub Title</label>
-                        <div class="mt-2">
-                            <textarea name="sub_title" id="sub_title" rows="3"class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('sub_title', $blog->sub_title ?? '') }}"
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="col-span-full mb-5">
-                        <label for="sub_content" class="block text-sm/6 font-medium text-gray-900">Sub Content</label>
-                        <div class="mt-2">
-                            <textarea name="sub_content" id="sub_content" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                value="{{ old('sub_content', $blog->sub_content ?? '') }}"
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="col-span-full mb-5">
->>>>>>> Stashed changes
                         <label class="block text-sm font-medium">Sub Image</label>
                         <input type="file" name="sub_image" id="sub_image" accept="image/*" class="w-full p-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                         @if(isset($blog) && $blog->sub_image)
