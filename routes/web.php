@@ -6,6 +6,7 @@ use App\Http\Controllers\AiToolDataController;
 use App\Http\Controllers\BlogDataController;
 use App\Http\Controllers\AiToolCategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', function () {
@@ -52,4 +53,7 @@ Route::get('/blog/list', [BlogDataController::class, 'view'])->name('blog.blog-l
 
 // Courses
 Route::resource('courses', CourseController::class);
+
+// Category
+Route::resource('categories', CategoryController::class);
 
