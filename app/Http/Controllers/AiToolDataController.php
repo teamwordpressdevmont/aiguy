@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AiTool;
-use App\Models\AIToolsCategory;
+use App\Models\AiToolsCategory;
+
 
 class AiToolDataController extends Controller
 {

@@ -25,8 +25,8 @@ Route::post('/ai-tools-category', [AiToolCategoryController::class, 'store'])->n
 Route::get('/ai-tools-category/list', [AiToolCategoryController::class, 'showList'])->name('categories.list');
 Route::get('/categories/{id}/edit', [AiToolCategoryController::class, 'edit'])->name('category.edit');
 Route::put('categories/{id}', [AiToolCategoryController::class, 'update'])->name('categories.update');
-Route::delete('/categories/{id}', [AiToolCategoryController::class, 'destroy'])->name('category.delete');
-
+Route::get('/categories/delete/{id}', [AiToolCategoryController::class, 'destroy'])->name('category.delete');
+Route::get('categories/{id}', [AiToolCategoryController::class, 'show'])->name('categories.show');
 
 // Ai-Tools
 Route::resource('tools', AiToolDataController::class);

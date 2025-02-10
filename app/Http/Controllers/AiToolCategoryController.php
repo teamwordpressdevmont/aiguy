@@ -9,8 +9,6 @@ use App\Models\AiToolsCategory;
 class AiToolCategoryController extends Controller
 {
     public function index() {
-
-        
         $allCategories = AiToolsCategory::all();
         return view('ai-tools-category.index', compact('allCategories')); 
     }
@@ -53,6 +51,14 @@ class AiToolCategoryController extends Controller
         return redirect()->route('categories.index')
                          ->with('success', 'Category created successfully.');
     }
+
+     // Display a specific category
+     public function show($id)
+    {
+         $category = AiToolsCategory::findOrFail($id); // Retrieve the category by ID
+         return view('ai-tools-category.show', compact('category')); // Pass the category to the view
+    }
+ 
 
      // Display the form for editing a category
      public function edit($id)
