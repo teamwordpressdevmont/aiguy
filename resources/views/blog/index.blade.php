@@ -271,24 +271,6 @@
                             </div>
                     </div>
                     <div class="col-span-full mb-5">
-                        <label class="block text-sm font-medium">Left Image</label>
-                        <input type="file" name="left_image" id="left_image" accept="image/*" class="w-full p-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-                        @if(isset($blog) && $blog->left_image)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $blog->left_image) }}" alt="Left Image" width="100">
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-span-full mb-5">
-                        <label for="right_text" class="block text-sm/6 font-medium text-gray-900">Right Text</label>
-                        <div class="mt-2">
-                            <textarea name="right_text" id="right_text" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                {{ old('right_text', $blog->right_text ?? '') }}
-                            </textarea>
-
-                        </div>
-                    </div>
-                    <div class="col-span-full mb-5">
                         <label for="sub_content" class="block text-sm/6 font-medium text-gray-900">Sub Content</label>
                         <div class="mt-2">
                             <textarea name="sub_content" id="sub_content" rows="3" class="tinymce-editor block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
