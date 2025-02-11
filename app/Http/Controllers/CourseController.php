@@ -13,31 +13,33 @@ class CourseController extends Controller
     // Show All Courses
     public function index()
     {
-        $courses = Course::with('category_course')->get();
+        $courses = Course::with('category_course_relation')->get();
         return view('courses.index', compact('courses'));
     }
 
     // Show Create Form
     public function create()
     {
-        $category_course = CategoryCourse::all(); 
-        return view('courses.create', compact('category_course'));
+        $category_course_relation = CategoryCourse::all(); 
+        return view('courses.create', compact('category_course_relation'));
     }
 
     // Store Course Data
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'name' => 'required',
             'cover_image' => 'nullable|image',
             'logo' => 'nullable|image',
             'type' => 'required|in:free,paid',
             'short_description' => 'nullable',
-            'category_courses' => 'required|array',
+            // 'category_course_relation' => 'required|array',
         ]);
 
         // Fix categories if sent as a string
-        $category_courses = is_array($request->category_courses) ? $request->category_courses : [$request->category_courses];
+        // $category_course_relation = is_array($request->category_course_relation) ? $request->category_course_relation : [$request->category_course_relation];
 
         // File Upload
         if ($request->hasFile('cover_image')) {
@@ -69,7 +71,7 @@ class CourseController extends Controller
         ]);
 
         // Attach Categories (Ensures it's an array)
-        $course->category_courses()->attach($category_courses);
+        // $course->category_course_relation()->attach($category_course_relation);
 
         return redirect()->route('courses.index')->with('success', 'Course Created Successfully');
     }
@@ -77,8 +79,8 @@ class CourseController extends Controller
     // Show Edit Form
     public function edit(Course $course)
     {
-        $category_course = Category::all();
-        return view('courses.edit', compact('course', 'category_course'));
+        $category_course_relation = Category::all();
+        return view('courses.edit', compact('course', 'category_course_relation'));
     }
 
     // Update Course
@@ -90,7 +92,7 @@ class CourseController extends Controller
             'logo' => 'nullable|image',
             'type' => 'required|in:free,paid',
             'short_description' => 'nullable',
-            'category_courses' => 'required|array',
+            'category_course_relation' => 'required|array',
         ]);
 
         // File Upload
@@ -127,7 +129,7 @@ class CourseController extends Controller
         ]);
 
         // Sync Categories
-        $course->category_courses()->sync($request->category_courses);
+        $course->category_course_relation()->sync($request->category_course_relation);
 
         return redirect()->route('courses.index')->with('success', 'Course Updated Successfully');
     }

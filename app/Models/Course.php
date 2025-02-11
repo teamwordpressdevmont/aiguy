@@ -11,9 +11,9 @@ class Course extends Model
 
     protected $fillable = ['name', 'cover_image', 'logo', 'type', 'short_description'];
 
-    public function category_course()
+    public function category_course_relation()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(CategoryCourse::class);
     }
 
     // public function categories()

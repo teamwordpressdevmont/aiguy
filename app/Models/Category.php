@@ -13,6 +13,6 @@
 
 //     public function courses()
 //     {
-//         return $this->belongsToMany(Course::class, 'category_courses');
+//         return $this->belongsToMany(Course::class, 'category_course');
 //     }
 // }
