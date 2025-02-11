@@ -11,14 +11,12 @@ use Carbon\Carbon;
 class BlogDataController extends Controller
 {
     // Display a listing of the blog posts
-    public function index()
-    {
+    public function index() {
         $categories = BlogCategory::all(); // Fetch all categories
         return view('blog.index', compact('categories'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
 
         $validatedData = [
             'user_id'        => 1,
@@ -36,7 +34,7 @@ class BlogDataController extends Controller
             'sub_image'      => $subImagePath ?? null, // Ensure this is set even if not uploaded
         ];
 
-   
+
 
         // if ($request->hasFile('featured_image')) {
             // $imagePath       = $request->file('featured_image') ? $request->file('featured_image')->store('blog-images', 'public') : null;
@@ -109,24 +107,21 @@ class BlogDataController extends Controller
     }
 
     // Blog List
-    public function list()
-    {
+    public function list() {
         $categories = BlogCategory::all();
         $blog = Blog::with('category')->get();
         return view('blog.blog-list', compact('categories','blog'));
     }
 
     // Blog Edit
-    public function edit($id)
-    {
+    public function edit($id) {
         $blog = Blog::findOrFail($id);
         $categories = BlogCategory::all();
         return view('blog.index', compact('blog', 'categories'));
     }
 
     // Blog Update
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $request->validate([
             'featured_image' => 'image|mimes:jpg,jpeg,png|max:2048',
             'category_id'    => 'required|exists:blog_category,id',
@@ -217,8 +212,7 @@ class BlogDataController extends Controller
     }
 
     // Blog Delete
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $blog = Blog::findOrFail($id);
         $blog->delete();
 
@@ -226,8 +220,7 @@ class BlogDataController extends Controller
     }
 
     // Blog View
-    public function view($id)
-    {
+    public function view($id) {
         $blog = Blog::findOrFail($id);
         return view('blog.view', compact('blog'));
     }

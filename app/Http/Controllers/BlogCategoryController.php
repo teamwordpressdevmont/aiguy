@@ -15,16 +15,14 @@ class BlogCategoryController extends Controller
 
 
     // Display a list of all categories
-    public function showList()
-    {
+    public function showList() {
         $categories = BlogCategory::all();
         return view('blog-category.list', compact('categories'));
     }
 
 
     // Display the form for creating a new category
-    public function create()
-    {
+    public function create() {
         // Retrieve all categories to list as potential parents.
         $allCategories = BlogCategory::all();
         return view('blog-category.index', compact('allCategories'));
@@ -32,10 +30,10 @@ class BlogCategoryController extends Controller
     }
 
     // Store a new category in the database
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validatedData = $request->validate([
             'name'              => 'required|string|max:255',
+            'slug'              => 'required|unique:blog_category,slug',
             'description'       => 'nullable|string',
             'icon'              => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'parent_category_id'=> 'nullable|exists:blog_category,id',
@@ -63,31 +61,28 @@ class BlogCategoryController extends Controller
 
         BlogCategory::create($validatedData);
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->back()->with('success', 'Category created successfully.');
     }
 
      // Display a specific category
-     public function show($id)
-    {
-         $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
-
-         return view('blog-category.show', compact('category')); // Pass the category to the view
+    public function show($id) {
+     $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
+     return view('blog-category.show', compact('category')); // Pass the category to the view
     }
 
 
-     // Display the form for editing a category
-     public function edit($id)
-     {
-         $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
-         $allCategories = BlogCategory::all(); // Retrieve all categories for the parent dropdown
-         return view('blog-category.index', compact('category', 'allCategories')); // Pass both to the view
+    // Display the form for editing a category
+     public function edit($id) {
+        $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
+        $allCategories = BlogCategory::all(); // Retrieve all categories for the parent dropdown
+        return view('blog-category.index', compact('category', 'allCategories')); // Pass both to the view
      }
 
-      // Update an existing category in the database
-    public function update(Request $request, $id)
-    {
+    // Update an existing category in the database
+    public function update(Request $request, $id) {
         $validatedData = $request->validate([
             'name'              => 'required|string|max:255',
+            'slug'              => 'required|unique:blog_category,slug,' . $id,
             'description'       => 'nullable|string',
             'icon'              => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'parent_category_id'=> 'nullable|exists:blogger_category,id',
@@ -108,18 +103,17 @@ class BlogCategoryController extends Controller
 
         $category->update($validatedData); // Update the category with validated data
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.'); // Redirect with success message
+        return redirect()->back()->with('success', 'Category updated successfully.'); // Redirect with success message
     }
 
-      // Delete a category from the database
-      public function destroy($id)
-      {
-          $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
+    // Delete a category from the database
+    public function destroy($id) {
+        $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
 
-          if ($category) {
-              $category->delete(); // Delete the category
-          }
+        if ($category) {
+            $category->delete(); // Delete the category
+        }
 
-          return redirect()->route('categories.create')->with('success', 'Category deleted successfully.');
-      }
+        return redirect()->back()->with('success', 'Category deleted successfully.');
+    }
 }

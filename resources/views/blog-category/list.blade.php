@@ -30,6 +30,9 @@
                         Name
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Slug
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Description
                         </th>
 
@@ -49,6 +52,9 @@
                         </th>
                         <td class="px-6 py-4">
                             {{ $category->name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $category->slug }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $category->description }}
