@@ -7,7 +7,7 @@ use App\Http\Controllers\BlogDataController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\AiToolCategoryController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CategoryController;
+// use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', function () {
@@ -81,5 +81,5 @@ Route::get('categories/{id}', [BlogCategoryController::class, 'show'])->name('ca
 Route::resource('courses', CourseController::class);
 
 // Category
-Route::resource('categories', CategoryController::class);
+// Route::resource('categories', CategoryController::class);
 Route::get('/courses/delete/{id}', [CourseController::class, 'destroy'])->name('courses.delete');
