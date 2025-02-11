@@ -11,7 +11,7 @@ class Course extends Model
 
     protected $fillable = ['name', 'cover_image', 'logo', 'type', 'short_description'];
 
-    public function categories()
+    public function category_course()
     {
         return $this->belongsToMany(Category::class);
     }

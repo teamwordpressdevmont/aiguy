@@ -42,7 +42,7 @@
                 @endif                    
             </td>
             <td class="px-6 py-4">
-                <span class="badge bg-info">{{ $course->categories->pluck('name')->join(', ') }}</span>
+                <span class="badge bg-info">{{ $course->category_course->pluck('name')->join(', ') }}</span>
             </td>
             <td class="px-6 py-4">{{ ucfirst($course->type) }}</td>
             <td class="px-6 py-4">

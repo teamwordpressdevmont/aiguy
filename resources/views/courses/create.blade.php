@@ -173,7 +173,7 @@
             <div class="mt-2">
                                   
                 <select name="categories[]" multiple  class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                    @foreach($categories as $category)
+                    @foreach($category_course as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                      @endforeach
                 </select>  
@@ -215,29 +215,7 @@
             <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Course</button>
         </div>               
 
-        <!-- <label>Cover Image:</label>
-        <input type="file" name="cover_image" class="form-control">
-
-        <label>Logo:</label>
-        <input type="file" name="logo" class="form-control">
-
-        <label>Type:</label>
-        <select name="type" class="form-control">
-            <option value="free">Free</option>
-            <option value="paid">Paid</option>
-        </select>
-
-        <label>Short Description:</label>
-        <textarea name="short_description" class="form-control"></textarea>
-
-        <label>Categories:</label>
-        <select name="categories[]" multiple class="form-control">
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-        </select>
-
-        <button type="submit" class="btn btn-success mt-3">Save Course</button> -->
+        
     </form>
 </div>
 @endsection

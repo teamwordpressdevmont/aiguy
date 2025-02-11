@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\Category;
+use App\Models\CategoryCourse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -13,15 +13,15 @@ class CourseController extends Controller
     // Show All Courses
     public function index()
     {
-        $courses = Course::with('categories')->get();
+        $courses = Course::with('category_course')->get();
         return view('courses.index', compact('courses'));
     }
 
     // Show Create Form
     public function create()
     {
-        $categories = Category::all(); 
-        return view('courses.create', compact('categories'));
+        $category_course = CategoryCourse::all(); 
+        return view('courses.create', compact('category_course'));
     }
 
     // Store Course Data
@@ -33,11 +33,11 @@ class CourseController extends Controller
             'logo' => 'nullable|image',
             'type' => 'required|in:free,paid',
             'short_description' => 'nullable',
-            'categories' => 'required|array',
+            'category_courses' => 'required|array',
         ]);
 
         // Fix categories if sent as a string
-        $categories = is_array($request->categories) ? $request->categories : [$request->categories];
+        $category_courses = is_array($request->category_courses) ? $request->category_courses : [$request->category_courses];
 
         // File Upload
         if ($request->hasFile('cover_image')) {
@@ -69,7 +69,7 @@ class CourseController extends Controller
         ]);
 
         // Attach Categories (Ensures it's an array)
-        $course->categories()->attach($categories);
+        $course->category_courses()->attach($category_courses);
 
         return redirect()->route('courses.index')->with('success', 'Course Created Successfully');
     }
@@ -77,8 +77,8 @@ class CourseController extends Controller
     // Show Edit Form
     public function edit(Course $course)
     {
-        $categories = Category::all();
-        return view('courses.edit', compact('course', 'categories'));
+        $category_course = Category::all();
+        return view('courses.edit', compact('course', 'category_course'));
     }
 
     // Update Course
@@ -90,7 +90,7 @@ class CourseController extends Controller
             'logo' => 'nullable|image',
             'type' => 'required|in:free,paid',
             'short_description' => 'nullable',
-            'categories' => 'required|array',
+            'category_courses' => 'required|array',
         ]);
 
         // File Upload
@@ -127,7 +127,7 @@ class CourseController extends Controller
         ]);
 
         // Sync Categories
-        $course->categories()->sync($request->categories);
+        $course->category_courses()->sync($request->category_courses);
 
         return redirect()->route('courses.index')->with('success', 'Course Updated Successfully');
     }
@@ -143,7 +143,7 @@ class CourseController extends Controller
             if ($course->cover_image) {
                 Storage::disk('public')->delete($course->cover_image);
             }
-            
+
             if ($course->logo) {
                 Storage::disk('public')->delete($course->logo);
             }
