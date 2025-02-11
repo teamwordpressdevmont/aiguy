@@ -70,12 +70,24 @@ Route::prefix('blog')->group(function () {
 // Blog Category
 Route::resource('categories', BlogCategoryController::class);
 Route::get('/blog-category/create', [BlogCategoryController::class, 'create'])->name('categories.create');
-Route::post('/blog-category', [BlogCategoryController::class, 'store'])->name('categories.store');
+Route::post('/blog-category/store', [BlogCategoryController::class, 'store'])->name('categories.store');
 Route::get('/blog-category/list', [BlogCategoryController::class, 'showList'])->name('categories.list');
-Route::get('/categories/{id}/edit', [BlogCategoryController::class, 'edit'])->name('category.edit');
-Route::put('categories/{id}', [BlogCategoryController::class, 'update'])->name('categories.update');
+
+
 Route::get('/categories/delete/{id}', [BlogCategoryController::class, 'destroy'])->name('category.delete');
-Route::get('categories/{id}', [BlogCategoryController::class, 'show'])->name('categories.show');
+// Route::get('categories/{id}', [BlogCategoryController::class, 'show'])->name('categories.show');
+
+
+Route::prefix('categories')->group(function () {
+
+    // Route for showing the blog category edit form
+    Route::get('{id}/edit', [BlogCategoryController::class, 'edit'])->name('category.edit');
+
+    // Route for updating blog category
+    Route::put('{id}', [BlogCategoryController::class, 'update'])->name('categories.update');
+
+});
+
 
 // Courses
 Route::resource('courses', CourseController::class);
