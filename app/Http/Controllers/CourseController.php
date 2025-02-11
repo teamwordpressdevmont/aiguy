@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -54,8 +55,8 @@ class CourseController extends Controller
             $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $image->getClientOriginalExtension();
             $imageName = 'courses-logo-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
-            $logoPath = $image->storeAs('courses-images', $imageName, 'public');
-            $validatedData['logo'] = $logoPath;
+            $logo = $image->storeAs('courses-images', $imageName, 'public');
+            $validatedData['logo'] = $logo;
         }
 
         // Create Course
@@ -111,16 +112,16 @@ class CourseController extends Controller
             $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $image->getClientOriginalExtension();
             $imageName = 'courses-logo-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
-            $logoPath = $image->storeAs('courses-images', $imageName, 'public');
-            $validatedData['logo'] = $logoPath;
+            $logo = $image->storeAs('courses-images', $imageName, 'public');
+            $validatedData['logo'] = $logo;
         }
-        // if ($request->hasFile('logo')) {
-        //     $course->logo = $request->file('logo')->store('logos', 'public');
-        // }
+       
 
         // Update Course
         $course->update([
             'name' => $request->name,
+            'cover_image' => $coverImage, // Updated to use the correct variable
+            'logo' =>  $logo,
             'type' => $request->type,
             'short_description' => $request->short_description,
         ]);
@@ -138,6 +139,15 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
 
         if (!is_null($course)) {
+
+            if ($course->cover_image) {
+                Storage::disk('public')->delete($course->cover_image);
+            }
+            
+            if ($course->logo) {
+                Storage::disk('public')->delete($course->logo);
+            }
+
             $course->delete();
         }
 

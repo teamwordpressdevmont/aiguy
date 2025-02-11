@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AiToolsCategory;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 class AiToolCategoryController extends Controller
@@ -118,10 +119,13 @@ class AiToolCategoryController extends Controller
           $category = AiToolsCategory::findOrFail($id); // Retrieve the category by ID
   
           if ($category) {
+            if ($category->icon) {
+                Storage::disk('public')->delete($category->icon);
+            }
               $category->delete(); // Delete the category
           }
     
-          return redirect()->route('categories.create')->with('success', 'Category deleted successfully.');
+          return redirect()->route('ai-tools-category.list')->with('success', 'Category deleted successfully.');
       }
 
 }

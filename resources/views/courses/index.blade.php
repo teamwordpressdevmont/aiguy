@@ -47,7 +47,7 @@
             <td class="px-6 py-4">{{ ucfirst($course->type) }}</td>
             <td class="px-6 py-4">
                 @if($course->cover_image)
-                    <img src="{{ asset('storage/' . $course->cover_image) }}" alt="Logo" width="50">
+                    <img src="{{ asset('storage/' . $course->cover_image) }}" alt="Cover" width="50">
                 @else
                     No Cover Image
                 @endif                    

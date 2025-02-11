@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\AiTool;
 use App\Models\AiToolsCategory;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 class AiToolDataController extends Controller
@@ -120,7 +121,7 @@ class AiToolDataController extends Controller
         $tool->category_id = $request->category_id;
         $tool->save();
 
-        return redirect()->back()->with('success', 'AI Tool updated successfully!');
+        return redirect()->route('ai-tools.list')-with('success', 'AI Tool updated successfully!');
     }
 
 
@@ -129,10 +130,19 @@ class AiToolDataController extends Controller
         $tool = AiTool::findOrFail($id);
 
         if (!is_null($tool)) {
+
+            if ($tool->cover) {
+                Storage::disk('public')->delete($tool->cover);
+            }
+
+            if ($tool->logo) {
+                Storage::disk('public')->delete($tool->logo);
+            }
+
             $tool->delete();
         }
 
-        return redirect()->route('ai-tools.index')->with('success', 'Tool deleted successfully.');
+        return redirect()->route('ai-tools.list')->with('success', 'Tool deleted successfully.');
     }
 
     public function view($id)
