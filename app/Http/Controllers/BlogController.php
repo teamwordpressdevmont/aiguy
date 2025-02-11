@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Models\AiToolsCategory;
+use App\Models\BlogCategory;
 use App\Models\Blog;
 
 class BlogController extends Controller
@@ -13,7 +14,7 @@ class BlogController extends Controller
     public function getBlogs( Request $request )
     {
         try {
-            
+
             $per_page = $request->per_page ?? -1;
             $page_no = $request->page_no ?? 1;
             $sort_by = $request->sort_by ?? 'DESC';
@@ -70,17 +71,17 @@ class BlogController extends Controller
             ], 500);
         }
     }
-    
+
     public function getSingleBlog( Request $request )
     {
         try {
-            
+
             $request->validate([
                 'blog_id' => 'required|exists:blogs,id',
             ]);
-            
+
             $blog = Blog::where( 'id', $request->blog_id )->first();
-            
+
             if ( empty( $blog ) ) {
                 return response()->json([
                     'status' => 'error',
