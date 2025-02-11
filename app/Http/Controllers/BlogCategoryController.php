@@ -33,6 +33,7 @@ class BlogCategoryController extends Controller
     public function store(Request $request) {
         $validatedData = $request->validate([
             'name'              => 'required|string|max:255',
+            'slug'              => 'required|unique:blog_category,slug',
             'description'       => 'nullable|string',
             'icon'              => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'parent_category_id'=> 'nullable|exists:blog_category,id',
@@ -81,6 +82,7 @@ class BlogCategoryController extends Controller
     public function update(Request $request, $id) {
         $validatedData = $request->validate([
             'name'              => 'required|string|max:255',
+            'slug'              => 'required|unique:blog_category,slug,' . $id,
             'description'       => 'nullable|string',
             'icon'              => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'parent_category_id'=> 'nullable|exists:blogger_category,id',

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('parent_category_id')->nullable();
             $table->string('name'); // category Name
+            $table->string('slug')->unique(); // category Slug
             $table->string('icon'); // category Icon
             $table->string('description')->nullable(); // category Description
             $table->timestamps();

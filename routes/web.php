@@ -72,8 +72,6 @@ Route::resource('categories', BlogCategoryController::class);
 Route::get('/blog-category/create', [BlogCategoryController::class, 'create'])->name('categories.create');
 Route::post('/blog-category/store', [BlogCategoryController::class, 'store'])->name('categories.store');
 Route::get('/blog-category/list', [BlogCategoryController::class, 'showList'])->name('categories.list');
-
-
 Route::get('/categories/delete/{id}', [BlogCategoryController::class, 'destroy'])->name('category.delete');
 // Route::get('categories/{id}', [BlogCategoryController::class, 'show'])->name('categories.show');
 
