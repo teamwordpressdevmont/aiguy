@@ -42,7 +42,11 @@
                 @endif                    
             </td>
             <td class="px-6 py-4">
-                <span class="badge bg-info">{{ $course->category_course->pluck('name')->join(', ') }}</span>
+                @if($course->categoryCourses->isNotEmpty())
+                    <span class="badge bg-info">{{ $course->categoryCourses->pluck('name')->join(', ') }}</span>
+                @else
+                    <span class="badge bg-info">No Category</span>
+                @endif     
             </td>
             <td class="px-6 py-4">{{ ucfirst($course->type) }}</td>
             <td class="px-6 py-4">

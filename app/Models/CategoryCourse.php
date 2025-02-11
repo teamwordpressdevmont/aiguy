@@ -13,6 +13,8 @@ class CategoryCourse extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'category_course_relation');
+        return $this->belongsToMany(Course::class, 'category_course_relation', 'category_id', 'course_id');
     }
+
+
 }
