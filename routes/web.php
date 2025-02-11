@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AiToolDataController;
 use App\Http\Controllers\BlogDataController;
+use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\AiToolCategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CategoryController;
@@ -65,6 +66,16 @@ Route::prefix('blog')->group(function () {
     Route::put('{id}', [BlogDataController::class, 'update'])->name('blog.update');
 
 });
+
+// Blog Category
+Route::resource('categories', BlogCategoryController::class);
+Route::get('/blog-category/create', [BlogCategoryController::class, 'create'])->name('categories.create');
+Route::post('/blog-category', [BlogCategoryController::class, 'store'])->name('categories.store');
+Route::get('/blog-category/list', [BlogCategoryController::class, 'showList'])->name('categories.list');
+Route::get('/categories/{id}/edit', [BlogCategoryController::class, 'edit'])->name('category.edit');
+Route::put('categories/{id}', [BlogCategoryController::class, 'update'])->name('categories.update');
+Route::get('/categories/delete/{id}', [BlogCategoryController::class, 'destroy'])->name('category.delete');
+Route::get('categories/{id}', [BlogCategoryController::class, 'show'])->name('categories.show');
 
 // Courses
 Route::resource('courses', CourseController::class);

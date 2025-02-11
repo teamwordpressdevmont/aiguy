@@ -13,7 +13,7 @@ class BlogCategory extends Model
     protected $table = 'blog_category';
 
     protected $fillable = [
-        'parent_category_id',
+        // 'parent_category_id',
         'name',
         'icon',
         'description',
