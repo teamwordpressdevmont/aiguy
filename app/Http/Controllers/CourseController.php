@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class CourseController extends Controller
 {
@@ -38,8 +39,24 @@ class CourseController extends Controller
         $categories = is_array($request->categories) ? $request->categories : [$request->categories];
 
         // File Upload
-        $coverImage = $request->file('cover_image') ? $request->file('cover_image')->store('covers', 'public') : null;
-        $logo = $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null;
+        if ($request->hasFile('cover_image')) {
+            $image = $request->file('cover_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'courses-cover-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $coverImage = $image->storeAs('courses-images', $imageName, 'public');
+            $validatedData['cover_image'] = $coverImage;
+        }
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'courses-logo-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $logoPath = $image->storeAs('courses-images', $imageName, 'public');
+            $validatedData['logo'] = $logoPath;
+        }
 
         // Create Course
         $course = Course::create([
@@ -76,12 +93,30 @@ class CourseController extends Controller
         ]);
 
         // File Upload
+        // if ($request->hasFile('cover_image')) {
+        //     $course->cover_image = $request->file('cover_image')->store('covers', 'public');
+        // }
         if ($request->hasFile('cover_image')) {
-            $course->cover_image = $request->file('cover_image')->store('covers', 'public');
+            $image = $request->file('cover_image');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'courses-cover-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $coverImage = $image->storeAs('courses-images', $imageName, 'public');
+            $validatedData['cover_image'] = $coverImage;
         }
         if ($request->hasFile('logo')) {
-            $course->logo = $request->file('logo')->store('logos', 'public');
+            $image = $request->file('logo');
+            $formattedDate = Carbon::now()->format('Y-m-d-His');
+            $actualFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'courses-logo-' . $actualFileName . '-' . $formattedDate . '.' . $extension;
+            $logoPath = $image->storeAs('courses-images', $imageName, 'public');
+            $validatedData['logo'] = $logoPath;
         }
+        // if ($request->hasFile('logo')) {
+        //     $course->logo = $request->file('logo')->store('logos', 'public');
+        // }
 
         // Update Course
         $course->update([
@@ -105,7 +140,7 @@ class CourseController extends Controller
         if (!is_null($course)) {
             $course->delete();
         }
-        
+
         return redirect()->route('courses.index')->with('success', 'Course Deleted Successfully');
     }
 }

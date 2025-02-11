@@ -89,10 +89,10 @@ class AiToolDataController extends Controller
         $tool = AiTool::findOrFail($id);
 
         // Upload Images (if new images are provided)
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
-            $tool->logo = $logoPath;
-        }
+        // if ($request->hasFile('logo')) {
+        //     $logoPath = $request->file('logo')->store('logos', 'public');
+        //     $tool->logo = $logoPath;
+        // }
 
         if ($request->hasFile('logo')) {
             $image = $request->file('logo');
