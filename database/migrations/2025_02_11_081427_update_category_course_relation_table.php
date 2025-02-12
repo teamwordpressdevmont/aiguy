@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::table('category_course_relation', function (Blueprint $table) {
-            // Ensure columns have the correct type (if needed)
-            $table->unsignedBigInteger('course_id')->change();
-            $table->unsignedBigInteger('category_id')->change();
+        Schema::create('category_course_relation', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('category_id');
+            $table->timestamps();
 
             // Add foreign key constraints
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
@@ -20,10 +21,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::table('category_course_relation', function (Blueprint $table) {
-            // Drop foreign key constraints
-            $table->dropForeign(['course_id']);
-            $table->dropForeign(['category_id']);
-        });
+        Schema::dropIfExists('category_course_relation');
     }
 };

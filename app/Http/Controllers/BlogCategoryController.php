@@ -8,17 +8,10 @@ use Carbon\Carbon;
 
 class BlogCategoryController extends Controller
 {
-    public function index() {
-        $allCategories = BlogCategory::all();
-        return view('blog-category.index', compact('allCategories'));
-    }
-
-
-    // Display a list of all categories
-    public function showList() {
-        $categories = BlogCategory::all();
-        return view('blog-category.list', compact('categories'));
-    }
+    // public function index() {
+    //     $allCategories = BlogCategory::all();
+    //     return view('blog-category.index', compact('allCategories'));
+    // }
 
 
     // Display the form for creating a new category
@@ -27,6 +20,13 @@ class BlogCategoryController extends Controller
         $allCategories = BlogCategory::all();
         return view('blog-category.index', compact('allCategories'));
 
+    }
+
+
+    // Display a list of all categories
+    public function showList() {
+        $categories = BlogCategory::all();
+        return view('blog-category.list', compact('categories'));
     }
 
     // Store a new category in the database
@@ -65,10 +65,10 @@ class BlogCategoryController extends Controller
     }
 
      // Display a specific category
-    public function show($id) {
-     $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
-     return view('blog-category.show', compact('category')); // Pass the category to the view
-    }
+    // public function show($id) {
+    //  $category = BlogCategory::findOrFail($id); // Retrieve the category by ID
+    //  return view('blog-category.show', compact('category')); // Pass the category to the view
+    // }
 
 
     // Display the form for editing a category

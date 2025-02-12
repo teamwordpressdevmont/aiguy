@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_courses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // category Name
-            $table->string('icon'); // category Icon
-            $table->string('description')->nullable(); // category Description
-            $table->string('slug'); // category Description
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('category_courses')) {
+            Schema::create('category_courses', function (Blueprint $table) {
+                $table->id();
+                $table->string('name'); 
+                $table->string('icon'); 
+                $table->string('description')->nullable(); 
+                $table->string('slug'); 
+                $table->timestamps();
+            });
+        }
     }
 
     /**
